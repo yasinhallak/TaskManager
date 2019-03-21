@@ -1,0 +1,146 @@
+﻿
+@using TaskManager.AdamResurces
+@using TaskManager.Data
+
+@model TaskManager.Data.ViewModel.SeededTasks
+@{
+    ViewData["Title"] = "EmployeeList";
+    Layout = "~/Views/Shared/_LayoutReport.cshtml";
+
+
+}
+
+<h2 class="text-info text-center">@_taskVM.TaskList</h2>
+
+<div style="margin:50px" class="lang">
+    <table class="table table-striped border lang ">
+        <thead class="th-opt">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Priority
+                </th>
+                <th>
+                    Development
+                </th>
+                <th>
+                    <span style="margin-left:100px">@_taskVM.Date</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <partial name="_TreeTask" model="Model"/>
+        </tbody>
+    </table>
+</div>
+
+
+@section Scripts
+
+    {
+    <script>
+        $(document).ready(function () {
+            //Crop the Date
+            $(".datefunction").each(function () {
+
+                var button = $(this);
+                var id = button.attr("data-Project-id");
+                var StartDate = $("#StartDate-" + id).attr("Start-Date");
+                console.log(StartDate);
+                if (StartDate.indexOf(" ")) {
+                    StartDate = StartDate.split(" ");
+                }
+                else {
+                    StartDate = StartDate.split("T");
+                };
+                $("#StartDate-" + id).html(StartDate[0]);
+
+
+                var EndDate = $("#EndDate-" + id).attr("End-Date");
+                if (EndDate.indexOf(" ")) {
+                    EndDate = EndDate.split(" ");
+                }
+                else {
+                    EndDate = StartDate.split("T");
+                };
+                $("#EndDate-" + id).html(EndDate[0]);
+
+            });
+
+            //PriorityColorNouran
+            $(".priorityColor").each(function () {
+                var button = $(this);
+                var name = button.attr("data-priority-Name");
+                var id = button.attr("data-Project-id");
+                if (name == "Medium") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#FFC107");
+                }
+                else if (name == "Low") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#6610F2");
+                }
+                else if (name == "Hight") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#F44336");
+                }
+
+            });
+
+            ////DevelopmentColorNouran
+            $(".DevelopmentColor").each(function () {
+                var button = $(this);
+                var name = button.attr("data-Development-Name");
+                var id = button.attr("data-Project-id");
+                if (name == "Done") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#28A745");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 50 + '%'
+                    });
+                    //  Increment counter
+                    $({ counter: 1 }).animate({ counter: 50 },
+                        {
+                            step: function () {
+                                $('#percentage-' + id).text(Math.ceil(this.counter) + ' %');
+                            }
+                        });
+                }
+                else if (name == "WorkingOn") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#FFC107");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 0 + '%'
+                    });
+                    $('#percentage-' + id).text(' ');
+
+
+
+                }
+                else if (name == "Stuck") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#F44336");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 0 + '%'
+                    });
+                    $('#percentage-' + id).text(' ');
+
+
+                }
+                else if (name == "init") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#0c3156");
+                    $("#dropdownDevelopment-" + id).css("color", "#EEEEEE");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 0 + '%'
+                    });
+                    $('#percentage-' + id).text(' ');
+
+
+
+                }
+            });
+
+
+        });
+    </script>
+}

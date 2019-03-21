@@ -1,0 +1,57 @@
+﻿@using TaskManager.Enums
+@using Microsoft.AspNetCore.Mvc.Localization
+@using TaskManager.AdamResurces
+@inject IViewLocalizer _Localizer
+
+@model TaskManager.Data.ViewModel.CityVM
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2 class="text-white text-center" style="background-color: #2D323E; padding: 8px;border-bottom: 2px solid #8BC4DD">@_CityVM.AddCity</h2>
+<div class="col-12 lang" style="padding: 100px">
+
+    <form method="post" asp-action="Create">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-row">
+            <div class="form-group col-10  col-md-8 lang">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                <label asp-for="Name" class="col-form-label"></label>
+                <span asp-validation-for="Name" class="text-danger"></span>
+                @if (ViewBag.Name != null)
+                {
+                    <h6 style="color: red">@ViewBag.Name</h6>
+                }
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-10  col-md-8">
+                <select asp-for="Country" class="form-control country" asp-items="Html.GetEnumSelectList<Country>()">
+                    <option selected="selected" value="">Country</option>
+                </select>
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group text-center">
+            <button type="submit" style="background-color: #10CC7C" class="btn btn-primary">@_button.Create</button>
+            <a asp-action="Index" style="background-color: #10CC7C" class="btn btn-primary">@_button.Back_to_List</a>
+        </div>
+
+    </form>
+</div>
+@section Scripts{
+    <script>
+        $(".City").parent().addClass('active').siblings().removeClass('active');
+
+        $(".country").select2({
+            theme: "classic",
+            placeholder:@Html.Raw(Json.Serialize(_UserInfo.SelectCountry))
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

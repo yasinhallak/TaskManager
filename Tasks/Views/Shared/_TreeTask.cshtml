@@ -1,0 +1,40 @@
+﻿@using TaskManager.AdamResurces
+@using TaskManager.Data.ViewModel
+@model TaskManager.Data.ViewModel.SeededTasks
+
+@if (Model.tasks.Where(x => x.ParentId == Model.Seed).Any())
+{
+    foreach (var item in Model.tasks)
+    {
+
+        if (item.ParentId == Model.Seed)
+        {
+            <tr id="@item.Id" style="padding-left:100px">
+                <td>
+                    @Html.DisplayFor(m => item.Name)
+                </td>
+                <td>
+                    <div class="dropdown-toggle btn priorityColor" style="width: 100px" id="dropdownShortcutMenu-@item.Id" data-priority-Name="@item.Priority" data-Project-id="@item.Id">
+                        @item.Priority
+                    </div>
+                </td>
+                <td>
+                    <div class="dropdown-toggle btn DevelopmentColor" style="width: 100px" id="dropdownDevelopment-@item.Id" data-Development-Name="@item.Development" data-Project-id="@item.Id">
+                        @item.Development
+                    </div>
+                </td>
+                <td>
+                    <div class="datefunction" data-Project-id="@item.Id">
+                        <label class="btn StartDate" style="width: 120px; background-color: #9db0c3;" Start-Date="@item.StartDate" id="StartDate-@item.Id">@item.StartDate</label>
+                        <i class="icon-ray-start-arrow" style="color: #0c3156"></i>
+                        <label class="btn btn-primary EndDate" style="width: 120px; background-color: #0c3156;" End-Date="@item.EndDate" id="EndDate-@item.Id">@item.EndDate</label>
+                    </div>
+                </td>
+            </tr>
+            SeededTasks Inner = new SeededTasks { Seed = item.Id, tasks = Model.tasks };
+            <partial name="_TreeTask" model="Inner" />
+        }
+
+    }
+
+}

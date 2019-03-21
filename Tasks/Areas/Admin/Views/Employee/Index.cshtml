@@ -1,0 +1,143 @@
+﻿@using TaskManager.AdamResurces
+@model IEnumerable<TaskManager.Data.ViewModel.EmployeeVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<style>
+    .col-12 {
+        flex: 0 0 11%;
+    }
+
+    .btn {
+        color: #457189;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="row lang" style="background-color:white; padding:14px ;border-bottom: 2px solid #8BC4DD">
+
+    <div class="col-12">
+        <a asp-action="Create" class="btn btn-clr-clctn"><i class="fas fa-plus" style="color:white;"></i>&nbsp; @_UserInfo.NewEmployee </a>
+    </div>
+</div>
+
+
+<div style="margin:50px">
+    <table class="table table-striped border tbl-opt" id="Employee">
+        <thead class="th-opt">
+            <tr>
+                <th class="secondary-text">
+                    <div class="table-header">
+                        <span class="column-title"> @Html.DisplayNameFor(m => m.FirstName)</span>
+                    </div>
+                </th>
+                <th class="secondary-text">
+                    <div class="table-header">
+                        <span class="column-title"> @Html.DisplayNameFor(m => m.Gender)</span>
+                    </div>
+                </th>
+                <th class="secondary-text">
+                    <div class="table-header">
+                        <span class="column-title"> @Html.DisplayNameFor(m => m.Email)</span>
+                    </div>
+                </th>
+                <th class="secondary-text">
+                    <div class="table-header">
+                        <span class="column-title">@Html.DisplayNameFor(m => m.Nationality1)</span>
+                    </div>
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.Id">
+                    <td>
+                        @Html.DisplayFor(m => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Nationality1)
+                    </td>
+                    <td style="width: 150px">
+                        <partial name="_TableButtonPartial" model="item.Id" />
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+<input type="hidden" id="hiddenEmployeeId" />
+@*delete employeee using bootstrapmodal*@
+<div class="modal fade" id="Mymodaldelete">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@_UserInfo.DeleteEmployee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="MymodalBody">
+                <h4> @_UserInfo.Are_you_sure__You_want_to_delete_this__</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@_button.Cancel</button>
+                <button type="button" class="btn btn-success" onclick="DeleteEmployee()">@_button.Confirm</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            $(".Employee").parent().addClass('active').siblings().removeClass('active');
+
+            $("#Employee").dataTable({
+                responsive: true
+            });
+        });
+        //delete data
+        var ConfirmDelete = function (Id) {
+
+            $("#hiddenEmployeeId").val(Id);
+            $("#Mymodaldelete").modal("show");
+        }
+        var DeleteEmployee = function () {
+
+            var empId = $("#hiddenEmployeeId").val();
+
+            $.ajax({
+                type: "GET",
+                url: "/Admin/Employee/DeleteConfrim?empId=" + empId,
+                success: function (result) {
+                    if (result == true) {
+                        $("#Mymodaldelete").modal("hide");
+                        window.location.reload();
+                    } else {
+                        $("#Mymodaldelete").modal("hide");
+                        window.location.reload();
+                    }
+
+                }
+
+            });
+        }
+    </script>
+
+}
+

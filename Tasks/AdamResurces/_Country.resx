@@ -1,0 +1,880 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AC" xml:space="preserve">
+    <value>جزيرة أسينشيون</value>
+  </data>
+  <data name="AD" xml:space="preserve">
+    <value>أندورا</value>
+  </data>
+  <data name="AE" xml:space="preserve">
+    <value>الإمارات العربية المتحدة</value>
+  </data>
+  <data name="AF" xml:space="preserve">
+    <value>أفغانستان</value>
+  </data>
+  <data name="AG" xml:space="preserve">
+    <value>أنتيغوا وبربودا</value>
+  </data>
+  <data name="AI" xml:space="preserve">
+    <value>أنغويلا</value>
+  </data>
+  <data name="AL" xml:space="preserve">
+    <value>ألبانيا</value>
+  </data>
+  <data name="AM" xml:space="preserve">
+    <value>أرمينيا</value>
+  </data>
+  <data name="AO" xml:space="preserve">
+    <value>أنغولا</value>
+  </data>
+  <data name="AQ" xml:space="preserve">
+    <value>أنتاركتيكا</value>
+  </data>
+  <data name="AR" xml:space="preserve">
+    <value>الأرجنتين</value>
+  </data>
+  <data name="AS" xml:space="preserve">
+    <value>ساموا الأمريكية</value>
+  </data>
+  <data name="AT" xml:space="preserve">
+    <value>النمسا</value>
+  </data>
+  <data name="AU" xml:space="preserve">
+    <value>أستراليا</value>
+  </data>
+  <data name="AW" xml:space="preserve">
+    <value>آروبا</value>
+  </data>
+  <data name="AX" xml:space="preserve">
+    <value>جزر آلاند</value>
+  </data>
+  <data name="AZ" xml:space="preserve">
+    <value>أذربيجان</value>
+  </data>
+  <data name="BA" xml:space="preserve">
+    <value>البوسنة والهرسك</value>
+  </data>
+  <data name="BB" xml:space="preserve">
+    <value>بربادوس</value>
+  </data>
+  <data name="BD" xml:space="preserve">
+    <value>بنجلاديش</value>
+  </data>
+  <data name="BE" xml:space="preserve">
+    <value>بلجيكا</value>
+  </data>
+  <data name="BF" xml:space="preserve">
+    <value>بوركينا فاسو</value>
+  </data>
+  <data name="BG" xml:space="preserve">
+    <value>بلغاريا</value>
+  </data>
+  <data name="BH" xml:space="preserve">
+    <value>البحرين</value>
+  </data>
+  <data name="BI" xml:space="preserve">
+    <value>بوروندي</value>
+  </data>
+  <data name="BJ" xml:space="preserve">
+    <value>بنين</value>
+  </data>
+  <data name="BL" xml:space="preserve">
+    <value>سان بارتليمي</value>
+  </data>
+  <data name="BM" xml:space="preserve">
+    <value>برمودا</value>
+  </data>
+  <data name="BN" xml:space="preserve">
+    <value>بروناي</value>
+  </data>
+  <data name="BO" xml:space="preserve">
+    <value>بوليفيا</value>
+  </data>
+  <data name="BQ" xml:space="preserve">
+    <value>هولندا الكاريبية</value>
+  </data>
+  <data name="BR" xml:space="preserve">
+    <value>البرازيل</value>
+  </data>
+  <data name="BS" xml:space="preserve">
+    <value>الباهاما</value>
+  </data>
+  <data name="BT" xml:space="preserve">
+    <value>بوتان</value>
+  </data>
+  <data name="BW" xml:space="preserve">
+    <value>بتسوانا</value>
+  </data>
+  <data name="BY" xml:space="preserve">
+    <value>روسيا البيضاء</value>
+  </data>
+  <data name="BZ" xml:space="preserve">
+    <value>بليز</value>
+  </data>
+  <data name="CA" xml:space="preserve">
+    <value>كندا</value>
+  </data>
+  <data name="CC" xml:space="preserve">
+    <value>جزر كوكوس</value>
+  </data>
+  <data name="CD" xml:space="preserve">
+    <value>الكونغو - كينشاسا</value>
+  </data>
+  <data name="CF" xml:space="preserve">
+    <value>جمهورية أفريقيا الوسطى</value>
+  </data>
+  <data name="CG" xml:space="preserve">
+    <value>الكونغو - برازافيل</value>
+  </data>
+  <data name="CH" xml:space="preserve">
+    <value>سويسرا</value>
+  </data>
+  <data name="CI" xml:space="preserve">
+    <value>ساحل العاج</value>
+  </data>
+  <data name="CK" xml:space="preserve">
+    <value>جزر كوك</value>
+  </data>
+  <data name="CL" xml:space="preserve">
+    <value>شيلي</value>
+  </data>
+  <data name="CM" xml:space="preserve">
+    <value>الكاميرون</value>
+  </data>
+  <data name="CN" xml:space="preserve">
+    <value>الصين</value>
+  </data>
+  <data name="CO" xml:space="preserve">
+    <value>كولومبيا</value>
+  </data>
+  <data name="CR" xml:space="preserve">
+    <value>كوستاريكا</value>
+  </data>
+  <data name="CU" xml:space="preserve">
+    <value>كوبا</value>
+  </data>
+  <data name="CV" xml:space="preserve">
+    <value>الرأس الأخضر</value>
+  </data>
+  <data name="CW" xml:space="preserve">
+    <value>كوراساو</value>
+  </data>
+  <data name="CX" xml:space="preserve">
+    <value>جزيرة الكريسماس</value>
+  </data>
+  <data name="CY" xml:space="preserve">
+    <value>قبرص</value>
+  </data>
+  <data name="CZ" xml:space="preserve">
+    <value>جمهورية التشيك</value>
+  </data>
+  <data name="DE" xml:space="preserve">
+    <value>ألمانيا</value>
+  </data>
+  <data name="DG" xml:space="preserve">
+    <value>دييغو غارسيا</value>
+  </data>
+  <data name="DJ" xml:space="preserve">
+    <value>جيبوتي</value>
+  </data>
+  <data name="DK" xml:space="preserve">
+    <value>الدانمرك</value>
+  </data>
+  <data name="DM" xml:space="preserve">
+    <value>دومينيكا</value>
+  </data>
+  <data name="DO" xml:space="preserve">
+    <value>جمهورية الدومينيك</value>
+  </data>
+  <data name="DZ" xml:space="preserve">
+    <value>الجزائر</value>
+  </data>
+  <data name="EA" xml:space="preserve">
+    <value>سيوتا وميليلا</value>
+  </data>
+  <data name="EC" xml:space="preserve">
+    <value>الإكوادور</value>
+  </data>
+  <data name="EE" xml:space="preserve">
+    <value>أستونيا</value>
+  </data>
+  <data name="EG" xml:space="preserve">
+    <value>مصر</value>
+  </data>
+  <data name="EH" xml:space="preserve">
+    <value>الصحراء الغربية</value>
+  </data>
+  <data name="ER" xml:space="preserve">
+    <value>أريتريا</value>
+  </data>
+  <data name="ES" xml:space="preserve">
+    <value>إسبانيا</value>
+  </data>
+  <data name="ET" xml:space="preserve">
+    <value>إثيوبيا</value>
+  </data>
+  <data name="FI" xml:space="preserve">
+    <value>فنلندا</value>
+  </data>
+  <data name="FJ" xml:space="preserve">
+    <value>فيجي</value>
+  </data>
+  <data name="FK" xml:space="preserve">
+    <value>جزر فوكلاند</value>
+  </data>
+  <data name="FM" xml:space="preserve">
+    <value>ميكرونيزيا</value>
+  </data>
+  <data name="FO" xml:space="preserve">
+    <value>جزر فارو</value>
+  </data>
+  <data name="FR" xml:space="preserve">
+    <value>فرنسا</value>
+  </data>
+  <data name="GA" xml:space="preserve">
+    <value>الجابون</value>
+  </data>
+  <data name="GB" xml:space="preserve">
+    <value>المملكة المتحدة</value>
+  </data>
+  <data name="GD" xml:space="preserve">
+    <value>غرينادا</value>
+  </data>
+  <data name="GE" xml:space="preserve">
+    <value>جورجيا</value>
+  </data>
+  <data name="GF" xml:space="preserve">
+    <value>غويانا الفرنسية</value>
+  </data>
+  <data name="GG" xml:space="preserve">
+    <value>غيرنزي</value>
+  </data>
+  <data name="GH" xml:space="preserve">
+    <value>غانا</value>
+  </data>
+  <data name="GI" xml:space="preserve">
+    <value>جبل طارق</value>
+  </data>
+  <data name="GL" xml:space="preserve">
+    <value>غرينلاند</value>
+  </data>
+  <data name="GM" xml:space="preserve">
+    <value>غامبيا</value>
+  </data>
+  <data name="GN" xml:space="preserve">
+    <value>غينيا</value>
+  </data>
+  <data name="GP" xml:space="preserve">
+    <value>جوادلوب</value>
+  </data>
+  <data name="GQ" xml:space="preserve">
+    <value>غينيا الإستوائية</value>
+  </data>
+  <data name="GR" xml:space="preserve">
+    <value>اليونان</value>
+  </data>
+  <data name="GS" xml:space="preserve">
+    <value>جورجيا الجنوبية وجزر ساندويتش الجنوبية</value>
+  </data>
+  <data name="GT" xml:space="preserve">
+    <value>غواتيمالا</value>
+  </data>
+  <data name="GU" xml:space="preserve">
+    <value>غوام</value>
+  </data>
+  <data name="GW" xml:space="preserve">
+    <value>غينيا بيساو</value>
+  </data>
+  <data name="GY" xml:space="preserve">
+    <value>غيانا</value>
+  </data>
+  <data name="HK" xml:space="preserve">
+    <value>هونغ كونغ الصينية</value>
+  </data>
+  <data name="HN" xml:space="preserve">
+    <value>هندوراس</value>
+  </data>
+  <data name="HR" xml:space="preserve">
+    <value>كرواتيا</value>
+  </data>
+  <data name="HT" xml:space="preserve">
+    <value>هايتي</value>
+  </data>
+  <data name="HU" xml:space="preserve">
+    <value>هنغاريا</value>
+  </data>
+  <data name="IC" xml:space="preserve">
+    <value>جزر الكناري</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>أندونيسيا</value>
+  </data>
+  <data name="IE" xml:space="preserve">
+    <value>أيرلندا</value>
+  </data>
+  <data name="IL" xml:space="preserve">
+    <value />
+    <comment>إسرائيل</comment>
+  </data>
+  <data name="IM" xml:space="preserve">
+    <value>جزيرة مان</value>
+  </data>
+  <data name="IN" xml:space="preserve">
+    <value>الهند</value>
+  </data>
+  <data name="IO" xml:space="preserve">
+    <value>الإقليم البريطاني في المحيط الهندي</value>
+  </data>
+  <data name="IQ" xml:space="preserve">
+    <value>العراق</value>
+  </data>
+  <data name="IR" xml:space="preserve">
+    <value>إيران</value>
+  </data>
+  <data name="IS" xml:space="preserve">
+    <value>أيسلندا</value>
+  </data>
+  <data name="IT" xml:space="preserve">
+    <value>إيطاليا</value>
+  </data>
+  <data name="JE" xml:space="preserve">
+    <value>جيرسي</value>
+  </data>
+  <data name="JM" xml:space="preserve">
+    <value>جامايكا</value>
+  </data>
+  <data name="JO" xml:space="preserve">
+    <value>الأردن</value>
+  </data>
+  <data name="JP" xml:space="preserve">
+    <value>اليابان</value>
+  </data>
+  <data name="KE" xml:space="preserve">
+    <value>كينيا</value>
+  </data>
+  <data name="KG" xml:space="preserve">
+    <value>قرغيزستان</value>
+  </data>
+  <data name="KH" xml:space="preserve">
+    <value>كمبوديا</value>
+  </data>
+  <data name="KI" xml:space="preserve">
+    <value>كيريباتي</value>
+  </data>
+  <data name="KM" xml:space="preserve">
+    <value>جزر القمر</value>
+  </data>
+  <data name="KN" xml:space="preserve">
+    <value>سانت كيتس ونيفيس</value>
+  </data>
+  <data name="KP" xml:space="preserve">
+    <value>كوريا الشمالية</value>
+  </data>
+  <data name="KR" xml:space="preserve">
+    <value>كوريا الجنوبية</value>
+  </data>
+  <data name="KW" xml:space="preserve">
+    <value>الكويت</value>
+  </data>
+  <data name="KY" xml:space="preserve">
+    <value>جزر الكايمن</value>
+  </data>
+  <data name="KZ" xml:space="preserve">
+    <value>كازاخستان</value>
+  </data>
+  <data name="LA" xml:space="preserve">
+    <value>لاوس</value>
+  </data>
+  <data name="LB" xml:space="preserve">
+    <value>لبنان</value>
+  </data>
+  <data name="LC" xml:space="preserve">
+    <value>سانت لوسيا</value>
+  </data>
+  <data name="LI" xml:space="preserve">
+    <value>ليختنشتاين</value>
+  </data>
+  <data name="LK" xml:space="preserve">
+    <value>سريلانكا</value>
+  </data>
+  <data name="LR" xml:space="preserve">
+    <value>ليبيريا</value>
+  </data>
+  <data name="LS" xml:space="preserve">
+    <value>ليسوتو</value>
+  </data>
+  <data name="LT" xml:space="preserve">
+    <value>ليتوانيا</value>
+  </data>
+  <data name="LU" xml:space="preserve">
+    <value>لوكسمبورغ</value>
+  </data>
+  <data name="LV" xml:space="preserve">
+    <value>لاتفيا</value>
+  </data>
+  <data name="LY" xml:space="preserve">
+    <value>ليبيا</value>
+  </data>
+  <data name="MA" xml:space="preserve">
+    <value>المغرب</value>
+  </data>
+  <data name="MC" xml:space="preserve">
+    <value>موناكو</value>
+  </data>
+  <data name="MD" xml:space="preserve">
+    <value>مولدافيا</value>
+  </data>
+  <data name="ME" xml:space="preserve">
+    <value>الجبل الأسود</value>
+  </data>
+  <data name="MF" xml:space="preserve">
+    <value>سانت مارتن</value>
+  </data>
+  <data name="MG" xml:space="preserve">
+    <value>مدغشقر</value>
+  </data>
+  <data name="MH" xml:space="preserve">
+    <value>جزر المارشال</value>
+  </data>
+  <data name="MK" xml:space="preserve">
+    <value>مقدونيا</value>
+  </data>
+  <data name="ML" xml:space="preserve">
+    <value>مالي</value>
+  </data>
+  <data name="MM" xml:space="preserve">
+    <value>ميانمار -بورما</value>
+  </data>
+  <data name="MN" xml:space="preserve">
+    <value>منغوليا</value>
+  </data>
+  <data name="MO" xml:space="preserve">
+    <value>مكاو الصينية (منطقة إدارية خاصة)</value>
+  </data>
+  <data name="MP" xml:space="preserve">
+    <value>جزر ماريانا الشمالية</value>
+  </data>
+  <data name="MQ" xml:space="preserve">
+    <value>مارتينيك</value>
+  </data>
+  <data name="MR" xml:space="preserve">
+    <value>موريتانيا</value>
+  </data>
+  <data name="MS" xml:space="preserve">
+    <value>مونتسرات</value>
+  </data>
+  <data name="MT" xml:space="preserve">
+    <value>مالطا</value>
+  </data>
+  <data name="MU" xml:space="preserve">
+    <value>موريشيوس</value>
+  </data>
+  <data name="MV" xml:space="preserve">
+    <value>جزر المالديف</value>
+  </data>
+  <data name="MW" xml:space="preserve">
+    <value>ملاوي</value>
+  </data>
+  <data name="MX" xml:space="preserve">
+    <value>المكسيك</value>
+  </data>
+  <data name="MY" xml:space="preserve">
+    <value>ماليزيا</value>
+  </data>
+  <data name="MZ" xml:space="preserve">
+    <value>موزمبيق</value>
+  </data>
+  <data name="NA" xml:space="preserve">
+    <value>ناميبيا</value>
+  </data>
+  <data name="NC" xml:space="preserve">
+    <value>كاليدونيا الجديدة</value>
+  </data>
+  <data name="NE" xml:space="preserve">
+    <value>النيجر</value>
+  </data>
+  <data name="NF" xml:space="preserve">
+    <value>جزيرة نورفوك</value>
+  </data>
+  <data name="NG" xml:space="preserve">
+    <value>نيجيريا</value>
+  </data>
+  <data name="NI" xml:space="preserve">
+    <value>نيكاراغوا</value>
+  </data>
+  <data name="NL" xml:space="preserve">
+    <value>هولندا</value>
+  </data>
+  <data name="NO" xml:space="preserve">
+    <value>النرويج</value>
+  </data>
+  <data name="NP" xml:space="preserve">
+    <value>نيبال</value>
+  </data>
+  <data name="NR" xml:space="preserve">
+    <value>ناورو</value>
+  </data>
+  <data name="NU" xml:space="preserve">
+    <value>نيوي</value>
+  </data>
+  <data name="NZ" xml:space="preserve">
+    <value>نيوزيلاندا</value>
+  </data>
+  <data name="OM" xml:space="preserve">
+    <value>عُمان</value>
+  </data>
+  <data name="PA" xml:space="preserve">
+    <value>بنما</value>
+  </data>
+  <data name="PE" xml:space="preserve">
+    <value>بيرو</value>
+  </data>
+  <data name="PF" xml:space="preserve">
+    <value>بولينيزيا الفرنسية</value>
+  </data>
+  <data name="PG" xml:space="preserve">
+    <value>بابوا غينيا الجديدة</value>
+  </data>
+  <data name="PH" xml:space="preserve">
+    <value>الفلبين</value>
+  </data>
+  <data name="PK" xml:space="preserve">
+    <value>باكستان</value>
+  </data>
+  <data name="PL" xml:space="preserve">
+    <value>بولندا</value>
+  </data>
+  <data name="PM" xml:space="preserve">
+    <value>سانت بيير وميكولون</value>
+  </data>
+  <data name="PN" xml:space="preserve">
+    <value>جزر بيتكيرن</value>
+  </data>
+  <data name="PR" xml:space="preserve">
+    <value>بورتوريكو</value>
+  </data>
+  <data name="PS" xml:space="preserve">
+    <value>الأراضي الفلسطينية</value>
+  </data>
+  <data name="PT" xml:space="preserve">
+    <value>البرتغال</value>
+  </data>
+  <data name="PW" xml:space="preserve">
+    <value>بالاو</value>
+  </data>
+  <data name="PY" xml:space="preserve">
+    <value>باراغواي</value>
+  </data>
+  <data name="QA" xml:space="preserve">
+    <value>قطر</value>
+  </data>
+  <data name="RE" xml:space="preserve">
+    <value>روينيون</value>
+  </data>
+  <data name="RO" xml:space="preserve">
+    <value>رومانيا</value>
+  </data>
+  <data name="RS" xml:space="preserve">
+    <value>صربيا</value>
+  </data>
+  <data name="RU" xml:space="preserve">
+    <value>روسيا</value>
+  </data>
+  <data name="RW" xml:space="preserve">
+    <value>رواندا</value>
+  </data>
+  <data name="SA" xml:space="preserve">
+    <value>المملكة العربية السعودية</value>
+  </data>
+  <data name="SB" xml:space="preserve">
+    <value>جزر سليمان</value>
+  </data>
+  <data name="SC" xml:space="preserve">
+    <value>سيشل</value>
+  </data>
+  <data name="SD" xml:space="preserve">
+    <value>السودان</value>
+  </data>
+  <data name="SE" xml:space="preserve">
+    <value>السويد</value>
+  </data>
+  <data name="SG" xml:space="preserve">
+    <value>سنغافورة</value>
+  </data>
+  <data name="SH" xml:space="preserve">
+    <value>سانت هيلنا</value>
+  </data>
+  <data name="SI" xml:space="preserve">
+    <value>سلوفينيا</value>
+  </data>
+  <data name="SJ" xml:space="preserve">
+    <value>سفالبارد وجان مايان</value>
+  </data>
+  <data name="SK" xml:space="preserve">
+    <value>سلوفاكيا</value>
+  </data>
+  <data name="SL" xml:space="preserve">
+    <value>سيراليون</value>
+  </data>
+  <data name="SM" xml:space="preserve">
+    <value>سان مارينو</value>
+  </data>
+  <data name="SN" xml:space="preserve">
+    <value>السنغال</value>
+  </data>
+  <data name="SO" xml:space="preserve">
+    <value>الصومال</value>
+  </data>
+  <data name="SR" xml:space="preserve">
+    <value>سورينام</value>
+  </data>
+  <data name="SS" xml:space="preserve">
+    <value>جنوب السودان</value>
+  </data>
+  <data name="ST" xml:space="preserve">
+    <value>ساو تومي وبرينسيبي</value>
+  </data>
+  <data name="SV" xml:space="preserve">
+    <value>السلفادور</value>
+  </data>
+  <data name="SX" xml:space="preserve">
+    <value>سينت مارتن</value>
+  </data>
+  <data name="SY" xml:space="preserve">
+    <value>سوريا</value>
+  </data>
+  <data name="SZ" xml:space="preserve">
+    <value>سوازيلاند</value>
+  </data>
+  <data name="TA" xml:space="preserve">
+    <value>تريستان دي كونها</value>
+  </data>
+  <data name="TC" xml:space="preserve">
+    <value>جزر الترك وجايكوس</value>
+  </data>
+  <data name="TD" xml:space="preserve">
+    <value>تشاد</value>
+  </data>
+  <data name="TF" xml:space="preserve">
+    <value>المقاطعات الجنوبية الفرنسية</value>
+  </data>
+  <data name="TG" xml:space="preserve">
+    <value>توجو</value>
+  </data>
+  <data name="TH" xml:space="preserve">
+    <value>تايلاند</value>
+  </data>
+  <data name="TJ" xml:space="preserve">
+    <value>طاجكستان</value>
+  </data>
+  <data name="TK" xml:space="preserve">
+    <value>توكيلو</value>
+  </data>
+  <data name="TL" xml:space="preserve">
+    <value>تيمور الشرقية</value>
+  </data>
+  <data name="TM" xml:space="preserve">
+    <value>تركمانستان</value>
+  </data>
+  <data name="TN" xml:space="preserve">
+    <value>تونس</value>
+  </data>
+  <data name="TO" xml:space="preserve">
+    <value>تونغا</value>
+  </data>
+  <data name="TR" xml:space="preserve">
+    <value>تركيا</value>
+  </data>
+  <data name="TT" xml:space="preserve">
+    <value>ترينيداد وتوباغو</value>
+  </data>
+  <data name="TV" xml:space="preserve">
+    <value>توفالو</value>
+  </data>
+  <data name="TW" xml:space="preserve">
+    <value>تايوان</value>
+  </data>
+  <data name="TZ" xml:space="preserve">
+    <value>تانزانيا</value>
+  </data>
+  <data name="UA" xml:space="preserve">
+    <value>أوكرانيا</value>
+  </data>
+  <data name="UG" xml:space="preserve">
+    <value>أوغندا</value>
+  </data>
+  <data name="UM" xml:space="preserve">
+    <value>جزر الولايات المتحدة النائية</value>
+  </data>
+  <data name="US" xml:space="preserve">
+    <value>الولايات المتحدة</value>
+  </data>
+  <data name="UY" xml:space="preserve">
+    <value>أورغواي</value>
+  </data>
+  <data name="UZ" xml:space="preserve">
+    <value>أوزبكستان</value>
+  </data>
+  <data name="VA" xml:space="preserve">
+    <value>الفاتيكان</value>
+  </data>
+  <data name="VC" xml:space="preserve">
+    <value>سانت فنسنت وغرنادين</value>
+  </data>
+  <data name="VE" xml:space="preserve">
+    <value>فنزويلا</value>
+  </data>
+  <data name="VG" xml:space="preserve">
+    <value>جزر فرجين البريطانية</value>
+  </data>
+  <data name="VI" xml:space="preserve">
+    <value>جزر فرجين الأمريكية</value>
+  </data>
+  <data name="VN" xml:space="preserve">
+    <value>فيتنام</value>
+  </data>
+  <data name="VU" xml:space="preserve">
+    <value>فانواتو</value>
+  </data>
+  <data name="WF" xml:space="preserve">
+    <value>جزر والس وفوتونا</value>
+  </data>
+  <data name="WS" xml:space="preserve">
+    <value>ساموا</value>
+  </data>
+  <data name="XK" xml:space="preserve">
+    <value>كوسوفو</value>
+  </data>
+  <data name="YE" xml:space="preserve">
+    <value>اليمن</value>
+  </data>
+  <data name="YT" xml:space="preserve">
+    <value>مايوت</value>
+  </data>
+  <data name="ZA" xml:space="preserve">
+    <value>جنوب أفريقيا</value>
+  </data>
+  <data name="ZM" xml:space="preserve">
+    <value>زامبيا</value>
+  </data>
+  <data name="ZW" xml:space="preserve">
+    <value>زيمبابوي</value>
+  </data>
+</root>

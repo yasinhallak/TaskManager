@@ -1,0 +1,45 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Cairo');
+
+
+.edit-head {
+    background-color: #44ACE1;
+    padding: 8px;
+    border-bottom: 2px solid #8BC4DD;
+    font-family: 'Cairo', sans-serif;
+}
+
+/* sidbar */
+/* icon color */
+.Icon-color {
+    color: #44ACE1 !important;
+}
+/* / icon color */
+/* /sidbar */
+
+.text-opt-en {
+    white-space: nowrap;
+    text-align: right;
+    margin-right: 2rem;
+    font-size: large;
+    font-family: 'Cairo', sans-serif;
+}
+
+.btn-clr-clctn {
+    background-color: #14AAF6;
+    color: #000000;
+    font-family: 'Cairo', sans-serif;
+    font-size: large;
+    border-radius: 5px;
+}
+
+.th-opt {
+    background-color: #14AAF6;
+}
+.active, .nav-item:hover {
+    background-color: #14AAF6;
+}
+
+.tab-pane.fade.show.active {
+    background: #fff;
+}
+

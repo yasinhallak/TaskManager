@@ -1,0 +1,81 @@
+﻿@using TaskManager.Enums
+@model IEnumerable<TaskManager.Data.ViewModel.NotificationVm>
+@{
+    ViewData["Title"] = "NotifyShowMore";
+    Layout = "~/Views/Shared/_LayoutTaskManager.cshtml";
+}
+
+
+
+<div style="margin:50px">
+    <table class="table table-striped border" id="Notify">
+        <thead style="background-color: #14AAF6">
+            <tr class="col-12">
+                <th class="secondary-text ">
+                    <div class="table-header">
+                        <span class="column-title"> @Html.DisplayNameFor(m => m.filename)</span>
+                    </div>
+                </th>
+                <th class="secondary-text ">
+                    <div class="table-header">
+                        <span class="column-title"> @Html.DisplayNameFor(m => m.NameOfSend)</span>
+                    </div>
+                </th>
+                <th class="secondary-text col-4 ">
+                    <div class="table-header">
+                        <span class="column-title">
+                            @Html.DisplayNameFor(m => m.Context)
+                        </span>
+                    </div>
+                </th>
+                <th class="secondary-text col-4">
+                    <div class="table-header">
+                        <span class="column-title"> @Html.DisplayNameFor(m => m.Date)</span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+
+                        <div class="avatar-wrapper">
+                            <img class="avatar" src="/UploadEm/@Html.DisplayFor(m => item.filename)">
+                        </div>
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.NameOfSend)
+                    </td>
+
+                    <td >
+                        <a href="~/Admin/@item.TableName/Details/@item.TablePkId" style="text-decoration: none">
+                            @item.Context
+                        </a>
+                    </td>
+                    
+
+                    <td>
+                        @Html.DisplayFor(m => item.Date)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+@section Scripts
+    {
+
+    <script>
+        $(document).ready(function () {
+            $("#Notify").dataTable({
+                responsive: true
+            });
+        });
+    </script>
+}

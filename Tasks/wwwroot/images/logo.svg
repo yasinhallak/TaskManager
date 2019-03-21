@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 361.193 146.208">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        fill: #151b26;
+      }
+
+      .cls-2 {
+        fill: #44ade2;
+      }
+
+      .cls-3 {
+        font-size: 37px;
+      }
+
+      .cls-3, .cls-4 {
+        font-family: SegoeUI-Semibold, Segoe UI;
+        font-weight: 600;
+      }
+
+      .cls-4 {
+        fill: #44ace1;
+        font-size: 84px;
+      }
+
+      .cls-5 {
+        font-family: SH_farisi_2;
+        font-weight: 400;
+      }
+    </style>
+  </defs>
+  <g id="logo" transform="translate(-34.296 -9.772)">
+    <g id="Group_2" data-name="Group 2" transform="translate(34.296 24.481)">
+      <path id="Path_1" data-name="Path 1" class="cls-1" d="M90.364,49.1l-1.725-.531L83.2,55.206l2.521.8v52.679L7.962,116.112V31.056L71.787,51.491l5.573-6.635L6.237,22.165a5.643,5.643,0,0,0-1.46-.265A4.756,4.756,0,0,0,0,26.677v92.885a4.757,4.757,0,0,0,4.777,4.777h.4L89.3,116.378a4.772,4.772,0,0,0,4.379-4.777V53.746A4.862,4.862,0,0,0,90.364,49.1Z" transform="translate(0 7.16)"/>
+      <path id="Path_2" data-name="Path 2" class="cls-2" d="M19.8,57.987l27.069,43.789L117.2,0l-68.2,86.383Z" transform="translate(6.473)"/>
+      <rect id="Rectangle_6" data-name="Rectangle 6" class="cls-2" width="2.123" height="8.625" transform="translate(51.087 54.139)"/>
+      <rect id="Rectangle_7" data-name="Rectangle 7" class="cls-2" width="2.123" height="7.829" transform="translate(51.087 108.012)"/>
+      <rect id="Rectangle_8" data-name="Rectangle 8" class="cls-2" width="2.123" height="11.81" transform="translate(23.436 84.587) rotate(90)"/>
+      <rect id="Rectangle_9" data-name="Rectangle 9" class="cls-2" width="2.123" height="8.227" transform="translate(83.142 84.21) rotate(90)"/>
+    </g>
+    <text id="MANAGER" class="cls-3" transform="translate(288.558 141.843)"><tspan x="-89.907" y="0">MANAGER</tspan></text>
+    <text id="TASK_" data-name="TASK " class="cls-4" transform="translate(289.489 100.772)"><tspan x="-105.021" y="0">TASK</tspan><tspan class="cls-5" y="0"> </tspan></text>
+  </g>
+</svg>

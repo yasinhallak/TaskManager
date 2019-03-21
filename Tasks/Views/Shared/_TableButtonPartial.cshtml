@@ -1,0 +1,20 @@
+﻿
+ @model object
+ @*
+        For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<td style="width:150px">
+    <div class="btn-group" role="group">
+        <a type="button" class="btn btn-primary" style="background-color:#0EC678 " href="@Url.Action("Edit/"+Model)">
+            <i class="fas fa-edit"></i>
+        </a>
+        <a type="button" class="btn btn-primary"  href="@Url.Action("Details/"+Model)">
+            <i class="fas fa-list-alt"></i>
+        </a>
+        <a type="button" class="btn btn-danger" style="background-color:#E2445B " href="#" onclick="ConfirmDelete(@Model)">
+            <i class="fas fa-trash-alt"></i>
+        </a>
+    </div>
+
+</td>

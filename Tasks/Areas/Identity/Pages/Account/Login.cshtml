@@ -1,0 +1,58 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = null;
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>LogIn</title>
+
+
+
+    <link href="~/css/LOGIN/css/Logın.css" rel="stylesheet" />
+</head>
+
+<body id="login_page">
+
+<div class="wrapper">
+    <div id="formContent">
+        @ValidationSummary.All
+        <!-- Tabs Titles -->
+        <!-- Icon -->
+        <div class="fadeIn logo">
+            <img src="/images/logo.png" id="icon" alt="User Icon" />
+        </div>
+        <!-- Login Form -->
+        <form method="post" novalidate>
+            <input name="Email" type="text" id="login" class="fadeIn" placeholder="UserName">
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+
+            <input name="Password" type="password" id="password" class="password" placeholder="password">
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+            <input type="submit" class="fadeIn" value="Log In">
+        </form>
+        <!-- Remind Passowrd -->
+        <a class="underlineHover" href="#">Forget Password?</a>
+    </div>
+</div>
+
+
+
+
+
+<script src="~/css/LOGIN/js/jquery-3.3.1.min.js"></script>
+<script src="~/css/LOGIN/js/bootstrap.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+
+</html>
+
+

@@ -1,0 +1,155 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TaskManager.AdamResurces
+@using TaskManager.Enums
+@model TaskManager.Data.ViewModel.TaskVM
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<h2 class="text-dark text-center edit-head">@_taskVM.UpdateTask</h2>
+<div class="col-12 lang" style="padding: 100px">
+
+    <form method="post" asp-action="Edit" enctype="multipart/form-data">
+        <input hidden asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-row font">
+            <div class="form-group col-md-6 input-cont">
+                <label asp-for="ProjectId" class="col-form-label inf-input"></label>
+                @Html.DropDownListFor(model => model.ProjectId, new SelectList(ViewBag.Project, "Id", "Name"), new {@class = "form-control Proj", @placeholder = "Name"})
+
+                <span asp-validation-for="ProjectId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name" })
+                <label asp-for="Name" class="col-form-label inf-input"></label>
+                <span asp-validation-for="Name" class="text-danger"></span>
+                @if (ViewBag.Name != null)
+                {
+                    <h5 style="color: red">@ViewBag.Name</h5>
+                }
+            </div>
+        </div>
+        <div class="form-row font">
+            <div class="form-group col-md-6 input-cont">
+                <label class="col-form-label inf-input">@_UserInfo.SelectPriority</label>
+                <select asp-for="Priority" class="form-control Priority " asp-items="Html.GetEnumSelectList<Priority>()">
+                    <option selected="selected" value="">Priority</option>
+                </select>
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 input-cont">
+                <label asp-for="EmployeeId" class="col-form-label inf-input"></label>
+                @Html.DropDownListFor(model => model.EmployeeId, new SelectList(ViewBag.Employee, "Id", "FirstName"), new {@class = "form-control Emp", @placeholder = "Employee"})
+    
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row font">
+            <div class="form-group col-md-6">
+                @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control datepicker", @placeholder = "StartDate" })
+                <label asp-for="StartDate" class="col-form-label inf-input"></label>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control datepicker", @placeholder = "EndDate" })
+                <label asp-for="EndDate" class="col-form-label inf-input"></label>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row font ">
+            <div class="form-group col-md-6">
+                <textarea asp-for="@Model.Description" class="form-control font" rows="3"></textarea>
+                <label asp-for="Description" class="tsk-input"></label>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <textarea asp-for="@Model.RequiredDetail" class="form-control font" rows="3"></textarea>
+                <label asp-for="RequiredDetail" class="tsk-input"></label>
+                <span asp-validation-for="RequiredDetail" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row font">
+            <div class="form-group col-md-6">
+                <textarea asp-for="@Model.Recommendation" class="form-control font" rows="3"></textarea>
+                <label asp-for="Recommendation" class="tsk-input"></label>
+                <span asp-validation-for="Recommendation" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <textarea asp-for="@Model.StatusOfAcievement" class="form-control font" rows="3"></textarea>
+                <label asp-for="StatusOfAcievement" class="tsk-input"></label>
+                <span asp-validation-for="StatusOfAcievement" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="file" multiple="" class="custom-file-input" id="customFile" name="files">
+            <label class="custom-file-label inf-input" for="customFile"></label>
+            <span asp-validation-for="FilePath" class="text-danger"></span>
+            @if (ViewBag.file != null)
+            {
+                <h6 style="color: red">@ViewBag.file</h6>
+            }
+        </div>
+
+        <div class="form-group col-6 col-md-5 col-lg-3">
+            @if (Model.FilePath?.Count > 0)
+            {
+                foreach (var file in Model.FilePath)
+                {
+                    if (file.FileExtenstion == ".pdf" || file.FileExtenstion == ".xlsx" || file.FileExtenstion == ".docx")
+                    {
+                     <a href="~/UploadTask/@file.FileName" target="_blank" style="text-decoration: none">@file.FileName</a><br />
+                        <a href="#" class="delete mr-3" value="@file.Id" style="text-decoration: none;"><i class="icon-camera-off" style="color: red"></i></a><br />
+
+                    }
+
+                    else
+                    {
+                        <img src="~/@file.FilePath" class="thumbnail mb-3 mr-4 " style="border-radius: 5px; border: 1px solid #ddd; width: 100%; height: 100%; padding: 5px;" />
+                        <a href="#" class="delete mr-3" value="@file.Id" style="text-decoration: none;"><i class="icon-camera-off" style="color: red"></i></a><br />
+                    }
+
+                }
+            }
+
+        </div>
+
+        <div class="form-group ">
+            <button type="submit" style="background-color: #10CC7C" class="btn btn-info font last-btn">@_button.Update</button>
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts
+    {
+    <script>
+        $(".task").parent().addClass('active').siblings().removeClass('active');
+
+        $(".Proj").select2({
+            theme: "classic"
+        });
+        $(".Emp").select2({
+            theme: "classic"
+        });
+        $(".Priority").select2({
+            theme: "classic"
+        });
+        $(document).ready(function () {
+            $(".datepicker").datepicker();
+            // delete File
+            $(".delete").click(function () {
+                var id = $(this).attr('value');
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Customer/DeleteFile?Id=" + id,
+                    success: function () {
+                        window.location.reload();
+                    }
+
+                });
+            });
+        });
+    </script>
+}

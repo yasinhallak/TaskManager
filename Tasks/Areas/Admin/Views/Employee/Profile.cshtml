@@ -1,0 +1,306 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TaskManager.AdamResurces
+@using TaskManager.Data
+@using TaskManager.Enums
+@using TaskManager.Extensions
+
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_LayoutTaskManager.cshtml";
+}
+<div id="profile" class="page-layout simple tabbed">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var Db = new ApplicationDbContext();
+        var Name = User.Identity.Name;
+        var CurrentUser = Db.ApplicationUsers.Where(a => a.Email == Name).SingleOrDefault();
+        var UserId = Db.ApplicationUsers.SingleOrDefault(x => x.Email == Name).Id;
+        <!-- HEADER -->
+        if (User.IsInRole(AppHelper.SuperAdminEndUser))
+        {
+            var attachment = Db.Attachments.FirstOrDefault(x => x.OwnerId == UserId);
+            <div class="page-header light-fg d-flex flex-column justify-content-center justify-content-lg-end p-6">
+                <div class="flex-column row flex-lg-row align-items-center align-items-lg-end no-gutters justify-content-between">
+                    <div class="user-info flex-column row flex-lg-row no-gutters align-items-center">
+                        <img class="profile-image avatar huge mr-6" src="/UploadDefault/@attachment.FileName">
+                        <div class="name h2 my-6">@CurrentUser.FirstName @CurrentUser.LastName</div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            var employeeId = Db.Employees.SingleOrDefault(x => x.UserId == UserId).Id;
+            var attachment = Db.Attachments.FirstOrDefault(x => x.OwnerId == employeeId.ToString() && x.AttachmentOwner == AttachmentOwner.Employees);
+            <!-- HEADER -->
+            <div class="page-header light-fg d-flex flex-column justify-content-center justify-content-lg-end p-6">
+                <div class="flex-column row flex-lg-row align-items-center align-items-lg-end no-gutters justify-content-between">
+                    <div class="user-info flex-column row flex-lg-row no-gutters align-items-center">
+                        @if (attachment != null)
+                        {
+                            <img class="profile-image avatar huge mr-6" src="/UploadEm/@attachment.FileName">
+                        }
+
+                        <div class="name h2 my-6">@CurrentUser.FirstName @CurrentUser.LastName</div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!-- / HEADER -->
+        <!-- CONTENT -->
+        <div class="page-content">
+
+            @*<ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link btn" id="about-tab" data-toggle="tab" href="#about-tab-pane" role="tab" aria-controls="about-tab-pane">About</a>
+                    </li>
+                </ul>*@
+            @if (User.IsInRole(AppHelper.Users))
+            {
+                var employee = Db.Employees.SingleOrDefault(x => x.UserId == UserId);
+                <div class="tab-content">
+                    @*---- About ---*@
+                    @*<div class="tab-pane fade" id="about-tab-pane" role="tabpanel" aria-labelledby="about-tab">*@
+                    <div class="row">
+                        <div class="about col-12 col-md-7 col-xl-9">
+                            <div class="profile-box info-box general card mb-4">
+                                <header class="h6 bg-secondary text-auto p-4">
+                                    <div class="title">@_UserInfo.GeneralInformation</div>
+                                </header>
+                                <div class="content p-4">
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.Gender</div>
+                                        <div class="info">@CurrentUser.Gender</div>
+                                    </div>
+
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.BirthDate</div>
+                                        <div class="info">@employee.BirthDate</div>
+                                    </div>
+
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.Locations</div>
+
+                                        <div class="info location">
+                                            <span>@employee.Country.GetDisplayName() @employee.CityId</span>
+                                            <i class="icon-map-marker s-4"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.Nationality1</div>
+
+                                        <div class="info location">
+                                            <span>@employee.Nationality1.GetDisplayName()</span>
+                                            <i class="icon-map-marker s-4"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="profile-box info-box contact card mb-4">
+
+                                <header class="h6 bg-secondary text-auto p-4">
+                                    <div class="title">@_UserInfo.Contact</div>
+                                </header>
+
+                                <div class="content p-4">
+
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.Address</div>
+                                        <div class="info">@employee.Address</div>
+                                    </div>
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.PhoneNumber</div>
+
+                                        <div class="info">
+                                            <span>&#43;@CurrentUser.PhoneNumber</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.Email</div>
+
+                                        <div class="info" ng-repeat="email in vm.about.contact.emails">
+                                            <span>@CurrentUser.Email</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="about-sidebar col-12 col-md-5 col-xl-3">
+                            @*Pojects*@
+                            @{
+                                var ProjectIds = Db.ProjectUsers.Where(x => x.UserId == employee.Id).Select(x => x.ProjectId).ToList();
+                                foreach (var item in ProjectIds)
+                                {
+                                    var Project = Db.Projects.SingleOrDefault(x => x.Id == item);
+                                    if (Project != null)
+                                    {
+                                        {
+                                            var attachment = Db.Attachments.FirstOrDefault(x => x.OwnerId == item.ToString() && x.AttachmentOwner == AttachmentOwner.Projects);
+                                            <div class="profile-box friends card mb-4">
+                                                <header class="row no-gutters align-items-center justify-content-between bg-secondary text-auto p-4">
+                                                    <div class="title h6">@Project.Name</div>
+                                                    <div class="more text-muted">
+                                                        <span>See</span>
+                                                        <span>454</span>
+                                                        <span>More</span>
+                                                    </div>
+                                                </header>
+                                                <div class="content row no-gutters p-4">
+
+                                                    <div class="friend col-3 p-1">
+                                                        @if (attachment != null)
+                                                        {
+                                                            <img class="w-100" src="/UploadProj/@attachment.FileName">
+                                                        }
+                                                        else
+                                                        {
+                                                            <img class="w-100" src="/UploadDefault/default.png">
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+
+                            }
+                            @*Tasks*@
+                            @if (employee != null)
+                            {
+                                var task = Db.Tasks.Where(x => x.EmployeeId == employee.Id).ToList();
+                                foreach (var item in task)
+                                {
+                                    var attachmetnTask = Db.Attachments.FirstOrDefault(x => x.OwnerId == item.Id.ToString() && x.AttachmentOwner == AttachmentOwner.Tasks);
+
+                                    <div class="profile-box friends card mb-4">
+                                        <header class="row no-gutters align-items-center justify-content-between bg-secondary text-auto p-4">
+                                            <div class="title h6">@item.Name</div>
+                                            <div class="more text-muted">
+                                                <span>See</span>
+                                                <span>454</span>
+                                                <span>More</span>
+                                            </div>
+                                        </header>
+                                        <div class="content row no-gutters p-4">
+
+                                            <div class="friend col-3 p-1">
+                                                @if (attachmetnTask != null)
+                                                {
+                                                    <img class="w-100" src="/UploadTask/@attachmetnTask.FileName">
+                                                }
+                                                else
+                                                {
+                                                    <img class="w-100" src="/UploadDefault/default.png">
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+
+
+
+                    </div>
+                    @*</div>*@
+                </div>
+            }
+            else
+            {
+                <div class="tab-content">
+
+                    @*---- About ---*@
+                    @*<div class="tab-pane fade" id="about-tab-pane" role="tabpanel" aria-labelledby="about-tab">*@
+                    <div class="row">
+                        <div class="about col-12 col-md-7 col-xl-9">
+                            <div class="profile-box info-box general card mb-4">
+                                <header class="h6 bg-secondary text-auto p-4">
+                                    <div class="title">@_UserInfo.GeneralInformation</div>
+                                </header>
+                                <div class="content p-4">
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.Gender</div>
+                                        <div class="info">@CurrentUser.Gender</div>
+                                    </div>
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.BirthDate</div>
+                                        @*<div class="info">@employee.BirthDate</div>*@
+                                    </div>
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.Locations</div>
+
+                                        <div class="info location">
+                                            @*<span>@employee.Country @employee.CityId</span>*@
+                                            <i class="icon-map-marker s-4"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.Nationality1</div>
+
+                                        <div class="info location">
+                                            @*<span>@employee.Nationality1</span>*@
+                                            <i class="icon-map-marker s-4"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-box info-box contact card mb-4">
+
+                                <header class="h6 bg-secondary text-auto p-4">
+                                    <div class="title">@_UserInfo.Contact</div>
+                                </header>
+
+                                <div class="content p-4">
+
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.Address</div>
+                                        <div class="info">kiay shahir</div>
+                                    </div>
+
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.PhoneNumber</div>
+
+                                        <div class="info">
+                                            <span>&#43;5314925630</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-line mb-6">
+                                        <div class="title font-weight-bold mb-1">@_UserInfo.Email</div>
+
+                                        <div class="info" ng-repeat="email in vm.about.contact.emails">
+                                            <span>@CurrentUser.Email</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    @*</div>*@
+                </div>
+            }
+
+        </div>
+    }
+</div>
+
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function() {
+            $(".Employee").parent().addClass('active').siblings().removeClass('active');
+
+        });
+    </script>
+    }

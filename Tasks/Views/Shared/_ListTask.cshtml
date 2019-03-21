@@ -1,0 +1,250 @@
+﻿
+@using TaskManager.AdamResurces
+@using TaskManager.Data
+@using TaskManager.Enums
+@using TaskManager.Extensions
+@model IEnumerable<TaskManager.Data.ViewModel.TaskVM>
+
+@{
+   
+}
+
+
+
+@foreach (var item in Model)
+{
+    var db = new ApplicationDbContext();
+    var task = db.Tasks.Select(x => x.ParentId).ToList();
+    <tr id="@item.Id" >
+
+        <td>
+            @if (task.Contains(item.Id))
+            {
+                <i class="fas fa-plus sel" data-loaded="false" pid="@item.Id"></i>
+            }
+            <span> @Html.DisplayFor(m => item.Name)</span>
+
+        </td>
+        <td>
+            <div class="add-shortcut-menu-button dropdown px-1 px-sm-3">
+                <div class="dropdown-toggle btn priorityColor" style="width: 100px" role="button" id="dropdownShortcutMenu-@item.Id" data-priority-Name="@item.Priority" data-Project-id="@item.Id" data-toggle="dropdown" aria-haspopup="true" value="Priority" aria-expanded="false">
+                    @item.Priority
+                </div>
+                <div class="dropdown-menu after-menue" aria-labelledby="dropdownShortcutMenu-@item.Id">
+                    <center>
+                        <div><button asp-for=" @item.Priority" class='btn js-priority-divbtn mb-3' style="background-color: #E1435A;" data-Project-id="@item.Id" data-priority-Name="Hight">Hight</button></div>
+                        <div><button asp-for=" @item.Priority" class='btn js-priority-divbtn mb-3' style="background-color: #FDAB3D;" data-Project-id="@item.Id" data-priority-Name="Medium">Medium</button></div>
+                        <div><button asp-for=" @item.Priority" class='btn js-priority-divbtn mb-3' style="background-color: #794BD1;" data-Project-id="@item.Id" data-priority-Name="Low">Low</button></div>
+                    </center>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="add-shortcut-menu-button dropdown px-1 px-sm-3">
+                <div class="dropdown-toggle btn DevelopmentColor" style="width: 130px" role="button" id="dropdownDevelopment-@item.Id" data-Development-Name="@item.Development" data-Project-id="@item.Id" data-toggle="dropdown" aria-haspopup="true" value="Priority" aria-expanded="false">
+                    @item.Development
+                </div>
+                <div class="dropdown-menu after-menue" aria-labelledby="dropdownShortcutMenu-@item.Id">
+                    <center>
+                        <div><button class='btn js-Development-divbtn mb-3 ml-3 mr-3' style="width: 120px; background-color: #00C774;" data-Project-id="@item.Id" data-Development-Name="Done">Done</button></div>
+                        <div><button class='btn js-Development-divbtn mb-3' style="width: 120px; background-color: #FDAB3D;" data-Project-id="@item.Id" data-Development-Name="WorkingOn">WorkingOn</button></div>
+                        <div><button class='btn js-Development-divbtn mb-3' style="width: 120px; background-color: #E1435A;" data-Project-id="@item.Id" data-Development-Name="Stuck">Stuck</button></div>
+                        <div><button class='btn js-Development-divbtn mb-3' style="width: 120px; background-color: #0c3156; color: #EEEEEE;" data-Project-id="@item.Id" data-Development-Name="init" id='js-Low'>init</button></div>
+                    </center>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="datefunction " data-Project-id="@item.Id">
+                <label class="btn StartDate" style="width: 120px; background-color: #0E5275; border-radius: 5px;" Start-Date="@item.StartDate" id="StartDate-@item.Id">@item.StartDate</label>
+                <i class="icon-ray-start-arrow" style="color: #0E5275"></i>
+                <label class="btn btn-primary EndDate" style="width: 120px; background-color: #13A9F6; border-radius: 5px; ;" End-Date="@item.EndDate" id="EndDate-@item.Id">@item.EndDate</label>
+            </div>
+        </td>
+        <td>
+            <div class="animated-progress" id="animated-progress-@item.Id" style="background-color: #EEEEEE; border: 1px #00CB72 solid; height: 20px; width: 100px; border-radius: 5px; overflow: hidden;">
+                <span id="animated-span-@item.Id" style="width: 0px; height: 100%; display: none; background-color: #00CB72;">
+                </span>
+            </div>
+            <span id="percentage-@item.Id"></span>
+        </td>
+
+        <td style="width: 150px">
+            <div class="btn-group" role="group">
+                <a type="button" class="btn btn-primary" style="background-color: #0EC678" href="@Url.Action("Edit/" + item.Id)">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a type="button" class="btn btn-primary" href="@Url.Action("Details/" + item.Id)">
+                    <i class="fas fa-list-alt"></i>
+                </a>
+                <a type="button" class="btn btn-danger" style="background-color: #E2445B" href="#" onclick="ConfirmDelete(@item.Id)">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+                <a type="button" class="btn btn-outline-secondary" onclick="ShowTask(@item.Id)">
+                    <i class="fas fa-plus"></i>
+                    &nbsp;@_taskVM.AddSubTask
+                </a>
+            </div>
+        </td>
+
+
+
+    </tr>
+
+}
+
+
+@{
+    <script>
+
+        $(document).ready(function () {
+
+            $(".sel").click(function () {
+                var this1 = $(this);
+                var trid = $(this).attr('pid');
+                var isloaded = $(this).attr('data-loaded'); // check data already loaded or not
+                console.log(isloaded);
+                if (isloaded == 'false') {
+                    $.ajax({
+                        type: "Get",
+                        url: "/Admin/task/SubTask?trid=" + trid,
+                        success: function (result) {
+                            console.log(result);
+                            $("#" + trid).after(result);
+                            $(this1).attr('data-loaded', true);
+                        },
+                        error: function () {
+                            alert("Error");
+                        }
+                    });
+                }
+
+            });
+            //Crop the Date
+            $(".datefunction").each(function () {
+
+                var button = $(this);
+                var id = button.attr("data-Project-id");
+                var StartDate = $("#StartDate-" + id).attr("Start-Date");
+                console.log(StartDate);
+                if (StartDate.indexOf(" ")) {
+                    StartDate = StartDate.split(" ");
+                }
+                else {
+                    StartDate = StartDate.split("T");
+                };
+                $("#StartDate-" + id).html(StartDate[0]);
+
+
+                var EndDate = $("#EndDate-" + id).attr("End-Date");
+                if (EndDate.indexOf(" ")) {
+                    EndDate = EndDate.split(" ");
+                }
+                else {
+                    EndDate = StartDate.split("T");
+                };
+                $("#EndDate-" + id).html(EndDate[0]);
+
+            });
+
+            //PriorityColorNouran
+            $(".priorityColor").each(function () {
+                var button = $(this);
+                var name = button.attr("data-priority-Name");
+                var id = button.attr("data-Project-id");
+                if (name == "Medium") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#FDAB3D");
+                }
+                else if (name == "Low") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#794BD1");
+                }
+                else if (name == "Hight") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#E1435A");
+                }
+
+            });
+
+            //DevelopmentColorNouran
+            $(".DevelopmentColor").each(function () {
+                var button = $(this);
+                var name = button.attr("data-Development-Name");
+                var id = button.attr("data-Project-id");
+                if (name == "Done") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#00C774");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 100 + '%'
+                    });
+                    //  Increment counter
+                    $({ counter: 1 }).animate({ counter: 100 },
+                        {
+                            step: function () {
+                                $('#percentage-' + id).text(Math.ceil(this.counter) + ' %');
+                            }
+                        });
+                }
+                else if (name == "WorkingOn") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#FDAB3D");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 50 + '%'
+                    });
+                    //  Increment counter
+                    $({ counter: 1 }).animate({ counter: 50 },
+                        {
+                            step: function () {
+                                $('#percentage-' + id).text(Math.ceil(this.counter) + ' %');
+                            }
+                        });
+                }
+                else if (name == "Stuck") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#E1435A");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 0 + '%'
+                    });
+                    $('#percentage-' + id).text(' ');
+
+                }
+                else if (name == "init") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#0c3156");
+                    $("#dropdownDevelopment-" + id).css("color", "#EEEEEE");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 0 + '%'
+                    });
+                    $('#percentage-' + id).text(' ');
+
+
+
+                }
+            });
+
+            //Change Priority Nouran
+            $(".js-priority-divbtn").click(function () {
+
+                debugger
+                var button = $(this);
+                var id = button.attr("data-Project-id");
+                var name = button.attr("data-priority-Name");
+
+                if (name == "Medium") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#FDAB3D");
+                }
+                else if (name == "Low") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#6610F2");
+                }
+                else if (name == "Hight") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#E1435A");
+                }
+
+                $("#dropdownShortcutMenu-" + id).html(name);
+                $.ajax({
+                    type: 'Post',
+                    url: "/Admin/task/ChangePriority/",
+                    data: { "sel": name, "ids": id }
+                });
+            });
+        })
+    </script>
+}

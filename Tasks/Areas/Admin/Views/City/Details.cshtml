@@ -1,0 +1,46 @@
+﻿@using TaskManager.AdamResurces
+@using TaskManager.Enums
+@model TaskManager.Data.ViewModel.CityVM
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h2 class="text-dark text-center edit-head">@_CityVM.DetailsCity</h2>
+
+<div class="col-12 lang" style="padding: 100px">
+
+    <div class="form-row font">
+        <div class="form-group col-10  col-md-8">
+            <label asp-for="Name" class="inf-input"></label>
+        </div>
+        <div class="form-group col-10  col-md-8">
+            <input asp-for="Name" disabled class="form-control" />
+        </div>
+
+    </div>
+    <div class="form-row font">
+        <div class="form-group col-10  col-md-8">
+            <label class="col-form-label inf-input">Select Country</label>
+            <select asp-for="Country" disabled  class="form-control country" asp-items="Html.GetEnumSelectList<Country>()">
+                <option selected="selected" value="">Country</option>
+            </select>
+
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group text-center">
+        <a asp-action="Edit" asp-route-id="@Model.Id" style="background-color: #10CC7C" class="btn btn-primary font ">@_button.Edit</a>
+        <a asp-action="Index" style="background-color: #10CC7C" class="btn btn-primary font ">@_button.Back_to_List</a>
+    </div>
+
+</div>
+
+
+
+@section Scripts{
+    <script>
+        $(".City").parent().addClass('active').siblings().removeClass('active');
+    </script>
+}

@@ -1,0 +1,259 @@
+﻿
+@using TaskManager.AdamResurces
+@using TaskManager.Enums
+@model TaskManager.Data.ViewModel.CustomerVM
+
+
+
+
+
+<h2 class="text-dark text-center edit-head">@_UserInfo.NewCustomer</h2>
+
+
+
+<div class="col-md-12 lang" style="padding:100px">
+    <form method="post" asp-action="Create" enctype="multipart/form-data">
+        <div class="form-row font">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-md-6">
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                <label asp-for="FirstName" class="col-form-label adTask-input"></label>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+                @if (ViewBag.Name != null)
+                {
+                    <h6 style="color: red">@ViewBag.Name</h6>
+                }
+
+            </div>
+            <div class="form-group col-md-6">
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                <label asp-for="LastName" class="col-form-label adTask-input"></label>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row font">
+            <div class="form-group col-md-6">
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control email" })
+                <label asp-for="Email" class="col-form-label adTask-input"></label>
+                <span class="text-danger em"></span>
+                <span asp-validation-for="Email" class="text-danger  "></span>
+                @if (ViewBag.Email != null)
+                {
+                    <h6 style="color: red">@ViewBag.Email</h6>
+                }
+            </div>
+            <div class="form-group col-md-6">
+                @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } }) 
+
+                <label asp-for="Mobile" class="col-form-label adTask-input"></label>
+                <span asp-validation-for="Mobile" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row font">
+            <div class="form-group col-md-6 input-cont">
+                <label asp-for="Gender" class="col-form-label"></label>
+                <select asp-for="Gender" class="form-control Gender" asp-items="Html.GetEnumSelectList<Gender>()">
+                    <option selected="selected" value="">Gender</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 input-cont">
+                <label asp-for="Nationality1" class="col-form-label"></label>
+                <select asp-for="Nationality1" class="form-control Nationality" asp-items="Html.GetEnumSelectList<Nationality1>()">
+                    <option selected="selected" value="">Nationality</option>
+                </select>
+                <span asp-validation-for="Nationality1" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row font">
+            <div class="form-group col-md-6 input-cont">
+                <label asp-for="Country" class="col-form-label"></label>
+
+                <select asp-for="Country" class="form-control country" asp-items="Html.GetEnumSelectList<Country>()">
+                    <option selected="selected" value="">Country</option>
+                </select>
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 input-cont">
+                <label asp-for="CityId" class="col-form-label"></label>
+                @Html.DropDownListFor(model => model.CityId, new SelectList(" "), "--Select City", new { @class = "form-control city" })
+                <span asp-validation-for="CityId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group font">
+            @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+            <label asp-for="Address" class="col-form-label inf-input-ads"></label>
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="form-group font">
+            <textarea asp-for="Notes" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label asp-for="Notes" for="exampleFormControlTextarea1" class="inf-input-ads"></label>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="file" class="custom-file-input" id="customFile" name="files">
+            <label class="custom-file-label" for="customFile"></label>
+            <span asp-validation-for="FilePath" class="text-danger"></span>
+            <div class="alert alert-danger" id="error-div" style="display: none">
+                <span id="view-err">
+                </span>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-3 col-12 thumbnail" id="imgPreview" style="border-radius: 5px; border: 1px solid #ddd; padding: 10px; display: none">
+            <img id="targetImg" style="width: 100%; height: 100%" />
+            <div class="caption">
+                <a href="#" onclick="ClearPreview()" style="text-decoration: none;"><i class="icon-camera-off" style="color: red"></i></a>
+            </div>
+        </div>
+        <div class="form-group text-center font">
+            <button type="submit" style="background-color: #10CC7C" class="btn btn-info" id="submit">@_button.Create</button>
+            <a asp-action="Index" style="background-color: #10CC7C" class="btn btn-info">@_button.Back_to_List</a>
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts{
+
+
+    <script>
+        $(document).ready(function () {
+            $(".Customer").parent().addClass('active').siblings().removeClass('active');
+
+            //check for Email
+            $(".email").keyup(function () {
+                var emai = $(this).val();
+                setTimeout(function() {
+                    // Typing finished, now you can Do whatever after 2 sec
+                    $.ajax({
+                        type: "Post",
+                        url: "/Admin/Customer/CheckEmail",
+                        data: { Email: emai },
+                        success: function (result) {
+                            if (result == true) {
+                                $(".em").append("Email Exist already");
+                                $("#submit").prop("disabled", true);
+
+                   
+                            } else {
+                                $(".em").empty();
+                                $("#submit").prop("disabled", false);
+
+                            }
+                        }
+                    });
+                }, 1000);
+               
+            });
+            // Show Image befor Upload
+            $("#customFile").change(function () {
+
+                var File = this.files;
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+            });
+            //Select Cities
+            $(".country").change(function () {
+                var country = $(this).val();
+                $.ajax({
+                    type: "Post",
+                    url: "/Admin/Customer/GetCityList?country=" + country,
+                    contentType: "html",
+                    success: function (response) {
+                        $(".city").empty();
+                        $(".city").append(response);
+                    }
+                });
+            });
+            // chek  for files
+            $("#submit").click(function () {
+
+                //check if  input is empty
+                if ($("#customFile").val() == "") {
+                    $("#error-div").fadeIn();
+                    $("#view-err").append("Please enter image ");
+                    return false;
+                }
+
+                //check if extenstion is valid
+                var fileName = document.getElementById("customFile").value;
+                var extenstionfile = fileName.substr(fileName.lastIndexOf('.') + 1);
+                var validExtenstion = ['jpg', 'svg', 'png', 'gif', 'svg', 'tif'];
+                if ($.inArray(extenstionfile, validExtenstion) == -1) {
+                    $("#error-div").fadeIn();
+                    $("#view-err").append("please enter image ");
+                    return false;
+                }
+                //check is image size is valid(50mb)
+                var myfileSize = document.getElementById("customFile").files[0].size / 1024 / 1024;
+
+                if (myfileSize > 3) {
+                    $("#error-div").fadeIn();
+                    $("#view-err").append("Please enter fileSize lower  than 3MB ");
+                    return false;
+                }
+
+            });
+        });
+        // Show Image befor Upload
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#targetImg").attr("src", _file.target.result);
+
+                    $("#description").text("Size:" + size + "," + height + "X" + width + " ");
+                    $("#imgPreview").show();
+                }
+
+            }
+        }
+        //Clear Image Befor upload
+        var ClearPreview = function () {
+            $("#customFile").val('');
+            $("#description").text('');
+            $("#imgPreview").hide();
+        }
+        $(".country").select2({
+            theme: "classic",
+            placeholder: @Html.Raw(Json.Serialize(_UserInfo.SelectCountry))
+
+        });
+        $(".Gender").select2({
+            theme: "classic",
+            placeholder: @Html.Raw(Json.Serialize(_UserInfo.SelectGender))
+        });
+        $(".city").select2({
+            theme: "classic",
+            placeholder:@Html.Raw(Json.Serialize(_UserInfo.SelectCity))
+
+        });
+        $(".Nationality").select2({
+            theme: "classic",
+            placeholder: @Html.Raw(Json.Serialize(_UserInfo.SelectNationality))
+
+        });
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
+
+

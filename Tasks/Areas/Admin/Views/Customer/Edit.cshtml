@@ -1,0 +1,247 @@
+﻿@using System.IO
+@using Microsoft.AspNetCore.Identity
+@using TaskManager.AdamResurces
+@using TaskManager.Enums
+@model TaskManager.Data.ViewModel.CustomerVM
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<h2 class="text-dark text-center edit-head">@_UserInfo.UpdateCustomer</h2>
+
+
+<div class="col-12 lang" style="padding: 100px">
+    <form method="post" asp-action="Edit" enctype="multipart/form-data">
+        <input hidden asp-for="Id" id="InputId" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-row font">
+            <div class="form-group col-md-6">
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                <label asp-for="FirstName" class="col-form-label inf-input"></label>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                <label asp-for="LastName" class="col-form-label inf-input"></label>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row font">
+            <div class="form-group col-md-6">
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control email" })
+                <label asp-for="Email" class="col-form-label inf-input"></label>
+                <span class="text-danger em"></span>
+                <span asp-validation-for="Email" class="text-danger   "></span>
+                @if (ViewBag.Email != null)
+                {
+                    <h6 style="color: red">@ViewBag.Email</h6>
+                }
+            </div>
+            <div class="form-group col-md-6">
+                @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } }) 
+
+                <label asp-for="Mobile" class="col-form-label inf-input"></label>
+                <span asp-validation-for="Mobile" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row font">
+            <div class="form-group col-md-6 input-cont">
+                <label asp-for="Gender" class="col-form-label"></label>
+                <select asp-for="Gender" class="form-control Gender " asp-items="Html.GetEnumSelectList<Gender>()">
+                    <option selected="selected" value="">Gender</option>
+                </select>
+            
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 input-cont">
+                <label asp-for="Nationality1" class="col-form-label"></label>
+                <select asp-for="Nationality1" class="form-control Nationality" asp-items="Html.GetEnumSelectList<Nationality1>()">
+                    <option selected="selected" value="">Nationality</option>
+                </select>
+             
+                <span asp-validation-for="Nationality1" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row font">
+            <div class="form-group col-md-6 input-cont">
+                <label asp-for="Country" class="col-form-label"></label>
+                <select asp-for="Country" class="form-control country" asp-items="Html.GetEnumSelectList<Country>()">
+                    <option selected="selected" value="">Country</option>
+                </select>
+               
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 input-cont">
+                <label asp-for="CityId" class="col-form-label"></label>
+                @Html.DropDownListFor(model => model.CityId, new SelectList(ViewBag.ListCity, "Id", "Name"), new { @class = "form-control city" })
+               
+                <span asp-validation-for="CityId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group col-md-12 ">
+            @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+            <label asp-for="Address" class="col-form-label  inf-input-ads"></label>
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-12">
+            <textarea asp-for="Notes" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label asp-for="Notes" for="exampleFormControlTextarea1" class="inf-input-ads"></label>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="file" class="custom-file-input" id="customFile" name="files">
+            <label class="custom-file-label" for="customFile"></label>
+            <span asp-validation-for="FilePath" class="text-danger"></span>
+            <div class="alert alert-danger" id="error-div" style="display:none">
+                <span id="view-err">
+                </span>
+            </div>
+            @if (ViewBag.file != null)
+            {
+                <h6 style="color: red">@ViewBag.file</h6>
+            }
+        </div>
+
+        <div class="col-8 col-md-6 col-lg-3">
+            @if (Model.FilePath?.Count > 0)
+            {
+                foreach (var file in Model.FilePath)
+                {
+                    <img src="~/@file.FilePath" class="thumbnail mb-3 mr-1" style="border-radius: 5px; border: 1px solid #ddd; width: 100%; height: 100%; padding: 5px;" id="image" />
+                    <a href="#" class="delete mr-3" value="@file.Id" style="text-decoration: none;"><i class="icon-camera-off" style="color: red"></i></a>
+                }
+            }
+
+        </div>
+
+        <div class="form-group ">
+            <button type="submit" style="background-color: #10CC7C"  class="btn btn-info font last-btn" id="submit">@_button.Update</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+
+    <script>
+
+        $(".country").select2({
+            theme: "classic",
+            placeholder: "Select Country"
+
+        });
+        $(".Gender").select2({
+            theme: "classic",
+            placeholder: "Select Gender"
+        });
+        $(".city").select2({
+            theme: "classic",
+            placeholder: "Select City"
+
+        });
+        $(".Nationality").select2({
+            theme: "classic",
+            placeholder: "Select Nationaltiy"
+
+        });
+        $(document).ready(function () {
+            $(".Customer").parent().addClass('active').siblings().removeClass('active');
+
+            // check for file Exsit in Db
+            $("#customFile").click(function () {
+                debugger
+                if ($("#image").val() != null) {
+                    $("#error-div").fadeIn();
+                    $("#view-err").append("Sorry exist file already in Db");
+                    return false;
+                }
+            });
+            //check for Email
+            
+
+            $(".email").keyup(function () {
+                var emai = $(this).val();
+                var id = $("#InputId").val();
+                setTimeout(function() {
+                    // Typing finished, now you can Do whatever after 2 sec
+                    $.ajax({
+                        type: "Post",
+                        url: "/Admin/Customer/CheckEmail",
+                        data: { Email: emai, Id: id  },
+                        success: function (result) {
+                            if (result == true) {
+                                $(".em").append("Email Exist already");
+                                $("#submit").prop("disabled", true);
+
+                   
+                            } else {
+                                $(".em").empty();
+                                $("#submit").prop("disabled", false);
+
+                            }
+                        }
+                    });
+                }, 1000);
+               
+            });
+            // Select City
+            $(".country").change(function () {
+                var country = $(this).val();
+                $.ajax({
+                    type: "Post",
+                    url: "/Admin/Customer/GetCityList?country=" + country,
+                    contentType: "html",
+                    success: function (response) {
+                        $(".city").empty();
+                        $(".city").append(response);
+                    }
+                });
+            });
+
+            // delete File
+            $(".delete").click(function () {
+                var id = $(this).attr('value');
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Customer/DeleteFile?Id=" + id,
+                    success: function () {
+                        window.location.reload();
+                    }
+
+                });
+            });
+
+            // chek  for files
+            $("#submit").click(function () {
+
+                //check if  input is empty
+                if ($("#customFile").val() != "") {
+                    //check if extenstion is valid
+                    var fileName = document.getElementById("customFile").value;
+                    var extenstionfile = fileName.substr(fileName.lastIndexOf('.') + 1);
+                    var validExtenstion = ['jpg', 'png', 'gif', 'tif', 'svg'];
+                    if ($.inArray(extenstionfile, validExtenstion) == -1) {
+                        $("#error-div").fadeIn();
+                        $("#view-err").append("please enter image");
+                        return false;
+                    }
+                    //check is image size is valid(50mb)
+                    var myfileSize = document.getElementById("customFile").files[0].size / 1024 / 1024;
+
+                    if (myfileSize > 3) {
+                        $("#error-div").fadeIn();
+                        $("#view-err").append("Please enter fileSize lower  than 3MB ");
+                        return false;
+                    }
+                }
+            });
+        });
+
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
+

@@ -1,0 +1,63 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Cairo');
+
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+#login_page {
+    background-image: url(/images/homee.png);
+    background-repeat: no-repeat;
+}
+
+.logo {
+    background-image: url(/images/logo.svg);
+    height: 80%;
+    width: 100%;
+    background-repeat: no-repeat;
+}
+
+p {
+    padding-left: 110px;
+    font-size: 19px;
+}
+
+.test {
+    display: block;
+    width: 300px;
+    border-radius: 30px;
+    margin-top: 60px;
+    margin-left: 71px;
+    background-color: #1E6F96;
+    font-size: 25px;
+}
+
+.dropdown-item {
+    line-height: 1.5rem !important;
+    height: 7rem !important;
+    white-space: initial !important;
+}
+
+.drop-nm {
+    font-size: 1.1rem !important;
+    display: inline-block;
+    margin-left: 5.2rem !important;
+    opacity: 0.6;
+    float: right !important;
+}
+
+
+#show-m {
+    line-height: 5rem !important;
+    height: 5rem !important;
+}
+
+.after-menu {
+    min-width: 20rem;
+}
+
+.user-liste {
+    line-height: 7rem !important;
+}

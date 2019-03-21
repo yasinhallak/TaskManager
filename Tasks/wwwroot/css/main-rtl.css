@@ -1,0 +1,170 @@
+﻿.lang {
+    direction: rtl !important
+}
+
+/* sidbar */
+.icon-opt {
+    margin-right: 0rem;
+    direction: rtl !important;
+}
+
+
+
+.text-opt-ar {
+    white-space: nowrap;
+    text-align: right;
+    margin-right: 2rem;
+    font-size: large;
+    font-family: 'Cairo', sans-serif;
+}
+/* icon color */
+.Icon-color {
+    color: #44ACE1 !important;
+}
+/* / icon color */
+/* /sidbar */
+
+/* adit space */
+.edit-head {
+    background-color: #44ACE1;
+    padding: 8px;
+    border-bottom: 2px solid #8BC4DD;
+    font-family: 'Cairo', sans-serif;
+}
+
+.inf-input {
+    text-align: right !important;
+    left: 2% !important;
+    margin-left: 22% !important;
+}
+
+.adTask-input {
+    text-align: right !important;
+    /*left: 2% !important;
+    margin-left: -7% !important;*/
+    transform-origin: right !important;
+}
+
+.form-group > label {
+    transform-origin: right;
+}
+
+
+.inf-input-ads {
+    text-align: right !important;
+    width: 10% !important;
+    left: 90% !important;
+}
+
+.font {
+    font-family: 'Cairo', sans-serif;
+    font-weight: bold;
+}
+
+.inf-input-cmt {
+    text-align: right !important;
+    width: 100% !important;
+    left: 90% !important;
+}
+
+.input-cont {
+    text-align: right !important;
+    padding-right: 30px !important;
+}
+
+.selection-andr {
+    position: relative;
+    right: -5% !important;
+    text-align: right;
+}
+
+.last-btn {
+    background-color: #10CC7C;
+    float: right;
+    margin-right: 2rem;
+}
+
+
+.tsk-input {
+    text-align: right;
+    margin-left: 6% !important;
+}
+
+.tsk-crt-input {
+    text-align: right;
+    margin-left: -2% !important;
+}
+/* /adit space */
+/* index-pages */
+.btn-clr-clctn {
+    background-color: #14AAF6;
+    color: #000000;
+    font-family: 'Cairo', sans-serif;
+    font-size: large;
+    border-radius: 5px;
+}
+
+.tbl-opt {
+    text-align: right;
+    font-family: 'Cairo', sans-serif;
+    direction: rtl !important;
+}
+
+.th-opt {
+    background-color: #14AAF6;
+}
+
+.font {
+    font-family: 'Cairo', sans-serif;
+    font-weight: bold;
+}
+
+
+/* /index-pages */
+
+/* Active link*/
+.active, .nav-item:hover {
+    background-color: #14AAF6;
+}
+
+.md-focus .adTask-input {
+    color: red !important;
+}
+
+.form-group.col-md-6.md-focus .adTask-input {
+    color: red !important;
+}
+
+
+/*change padding for select*/
+.form-row > .col, .form-row > [class*="col-"] {
+    padding-right: 0px !important;
+}
+.select2-results__option {
+    padding: 6px;
+    user-select: none;
+    -webkit-user-select: none;
+    text-align: right;
+}
+.select2-search__field {
+    text-align: right;
+ 
+}
+.select2-selection__rendered {
+    text-align: right;
+}
+.form-group.col-6.col-md-5.col-lg-3 {
+    text-align: right;
+}
+
+.nv-legend-text {
+    color: red;
+    background: blue;
+    color: aqua;
+    position: absolute;
+    top: 50px;
+}
+
+.dis {
+    text-align: right
+}

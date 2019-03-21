@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Connections.Features
+@using Microsoft.AspNetCore.Http.Connections.Internal
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Razor.Extensions
+@using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http
+@using Microsoft.CodeAnalysis.Options
+@using Microsoft.Extensions.Options
+
+@using TaskManager.Enums
+@using TaskManager.Extensions
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOption
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOption.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+
+}
+
+<div class="shortcuts row no-gutters align-items-center d-none d-md-flex" title="@Localizer["Request culture provider:"] @requestCulture?.Provider?.GetType().Name">
+ 
+    <a  asp-area="Admin" asp-controller="Home" asp-action="SetLanguageGet" 
+        asp-route-returnUrl="@Context.Request.Path" asp-route-culture="en-US" class="shortcut-button btn btn-icon mx-1">
+        <i style="color: #44ACE1;font-size: large;    font-family: 'Cairo', sans-serif;">@Language.en_US.GetDisplayName()</i>
+    </a>
+ 
+    <a asp-area="Admin" asp-controller="Home" asp-action="SetLanguageGet" 
+       asp-route-returnUrl="@Context.Request.Path" asp-route-culture="ar-SY" class="shortcut-button btn btn-icon mx-1">
+        <i style="color: #44ACE1;font-size: large; font-family: 'Cairo', sans-serif;">@Language.ar_SY.GetDisplayName()</i>
+    </a> 
+
+</div>
+@*<div class="language-button dropdown" title="@Localizer["Request culture provider:"] @requestCulture?.Provider?.GetType().Name">
+
+    <div class="dropdown-toggle ripple row align-items-center justify-content-center no-gutters px-0 px-sm-4" role="button" id="dropdownLanguageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="row no-gutters align-items-center">
+            <img class="flag mr-2" src="/Content/assets/images/flags/es.png">
+            <span class="d-none d-md-block">ES</span>
+        </div>
+    </div>
+    <div class="dropdown-menu" aria-labelledby="dropdownLanguageMenu">
+        @foreach (var option in cultureItems)
+        {
+            <a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="SetLanguageGet" id="submit"
+               asp-route-returnUrl="@Context.Request.Path" asp-route-culture="@option.Value">
+                <div class="row no-gutters align-items-center flex-nowrap">
+                    <img class="flag" src="/Content/assets/images/flags/es.png">
+                    <span class="px-3" id="span">@option.Text</span>
+                </div>
+            </a>
+        }
+    </div>
+
+</div>*@
+
+
+

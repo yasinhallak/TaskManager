@@ -1,0 +1,303 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using TaskManager.AdamResurces
+@using TaskManager.Data
+@using TaskManager.Enums
+@using TaskManager.Extensions
+
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model TaskManager.Data.ViewModel.ProjectVM
+
+<h2 class="text-dark text-center edit-head">@_ProjectVM.DetailProject</h2>
+<div class="col-md-12 lang" style="padding: 100px">
+
+    <input type="hidden" asp-for="Id" id="InputId" />
+    <div class="form-row font">
+        <div class="form-group col-12  col-md-8 col-lg-9">
+            <input asp-for="Name" disabled="" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+            <label asp-for="Name" class="form-control-label inf-input"></label>
+        </div>
+    </div>
+    <div class="form-row font">
+        <div class="form-group col-12  col-md-8 col-lg-9">
+            <label asp-for="CustomerId" class="form-control-label inf-input"></label>
+            @Html.DropDownListFor(model => model.CustomerId, new SelectList(ViewBag.Customer, "Id", "FirstName"), new {@disabled = "disabled", @class = "form-control sel"})
+           
+        </div>
+    </div>
+    <div class="form-row font">
+        <div class="form-group col-12  col-md-8 col-lg-9">
+            <label asp-for="EmployeeId" class="form-control-label inf-input" for="formGroupExampleInput2"></label>
+            @Html.DropDownListFor(model => model.EmployeeId, new SelectList(ViewBag.Employee, "Id", "FirstName"), new {@disabled = "disabled", @class = "form-control down"})
+
+        </div>
+    </div>
+    <div class="form-group col-6 col-md-5 col-lg-3">
+        @if (Model.FilePath?.Count > 0)
+        {
+            foreach (var file in Model.FilePath)
+            {
+                if (file.FileExtenstion == ".pdf" || file.FileExtenstion == ".xlsx" || file.FileExtenstion == ".docx")
+                {
+                    <a href="~/UploadProj/@file.FileName" target="_blank" style="text-decoration: none">@file.FileName</a><br />
+
+                }
+                else
+                {
+                    <img src="~/@file.FilePath" class="thumbnail mb-3 mr-4 " style="border-radius: 5px; border: 1px solid #ddd; width: 100%; height: 100%; padding: 5px;" />
+                }
+
+            }
+        }
+
+    </div>
+    @if (User.IsInRole(AppHelper.SuperAdminEndUser))
+    {
+        <div class="form-group text-center">
+            <a asp-action="Edit" asp-route-id="@Model.Id" style="background-color: #10CC7C" class="btn btn-primary font">@_button.Edit</a>
+            <a asp-action="Index" style="background-color: #10CC7C" class="btn btn-primary font">@_button.Back_to_List</a>
+        </div>
+    }
+
+    <div class="form-group col-12  col-md-8 col-lg-9">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var Db = new ApplicationDbContext();
+            var Name = User.Identity.Name;
+            var CurrentUser = Db.ApplicationUsers.Where(a => a.Email == Name).SingleOrDefault();
+            var UserId = Db.ApplicationUsers.SingleOrDefault(x => x.Email == Name).Id;
+            if (User.IsInRole(AppHelper.SuperAdminEndUser))
+            {
+                //  var employeeId = Db.Employees.SingleOrDefault(x => x.UserId == UserId).Id;
+                // var attachment = Db.Attachments.FirstOrDefault(x => x.OwnerId == employeeId.ToString() && x.AttachmentOwner == AttachmentOwner.Employees);
+        <footer class="bg-light p-4 ">
+            <div class="comment-count mb-4" style="text-align: center">
+                @_taskVM.Comments
+            </div>
+         
+            <div class="reply row no-gutters" id="newComment">
+                <img src="/UploadDefault/MyImage.jpg" class="col-auto avatar mr-2" />
+                <form class="col">
+                    <textarea class="p-2 mb-2 w-100" id="text" placeholder="@_taskVM.AddComment..."></textarea>
+                    <button type="button" id="submit" class="post-comment-button btn btn-sm btn-secondary " aria-label="Post Comment">
+                        @_taskVM.PostComment
+                    </button>
+                </form>
+            </div>
+        </footer>
+            }
+            else
+            {
+                var employeeId = Db.Employees.SingleOrDefault(x => x.UserId == UserId).Id;
+                var attachment = Db.Attachments.FirstOrDefault(x => x.OwnerId == employeeId.ToString() && x.AttachmentOwner == AttachmentOwner.Employees);
+                var employee = Db.Employees.SingleOrDefault(x => x.UserId == UserId);
+                <footer class="bg-light p-4 ">
+                    <div class="comment-count mb-4" style="text-align: center">
+                       @_taskVM.Comments
+                    </div>
+
+                    <div class="reply row no-gutters" id="newComment">
+                        <img src="/UploadEm/@attachment.FileName" class="col-auto avatar mr-2" />
+                        <form class="col">
+                            <textarea class="p-2 mb-2 w-100" id="text" placeholder="@_taskVM.AddComment..."></textarea>
+                            <button type="button" id="submit" class="post-comment-button btn btn-sm btn-secondary " aria-label="Post Comment">
+                             @_taskVM.PostComment
+                            </button>
+                        </form>
+                    </div>
+
+                </footer>
+            }
+        }
+    </div>
+
+    @*delete employeee using bootstrapmodal*@
+    <div class="modal fade" id="Mymodaldelete">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@_UserInfo.DeleteComment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="MymodalBody">
+                    <h4>@_UserInfo.Are_you_sure__You_want_to_delete_this__</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@_button.Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="DeleteEmployee()">@_button.Confirm</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <input type="hidden" id="textvalue" name="EmpIds" />
+    <input type="hidden" id="CommentId" name="EmpIds" /> 
+</div>
+@section Scripts
+    {
+    <script>
+ 
+
+        $(document).ready(function () {
+            $(".Project").parent().addClass('active').siblings().removeClass('active');
+
+           
+            // comments
+            $("#submit").click(function() {
+                var recordId = $("#InputId").val();
+                var data = $("#text").val();
+                $.ajax({
+                    type: "Post",
+                    url: "/Admin/Project/Comments",
+                    data: { data, recordId },
+                    success: function (respone) {
+                        var comment = "<div  class='comment row no-gutters mb-6'>" +
+                            "<img src='/UploadEm/" +
+                            respone.attacment +
+                            " '  class='col-auto avatar mr-2'/>" +
+                            "<div class='col'>" +
+                            "<div class='row no-gutters align-items-center'>" +
+                            "<span class='username font-weight-bold mr-1'> " +
+                            respone.firstName +
+                            ' ' +
+                            respone.lastName +
+                            "</span>" +
+                            "<span class='time text-muted'>" + respone.date + "</span>" +
+                            "</div>" +
+                            "<div class='message inf-input-cmt'> " +
+                            data +
+                            "<button type='button' class='col-auto btn btn-icon' aria-label='more' onclick='ConfirmDelete("+respone.id+")'>"+
+                            "<i class='icon icon-dots-vertical' ></i>"+
+                            "</button>"+
+                            "</div>" +
+                            "<div class='actions row no-gutters align-items-center justify-content-start'>" +
+                            " </div> " +
+                            " </div> " +
+                            " </div>";
+                        $("#newComment").before(comment);
+    
+                        $("#text").val('');
+
+                    }
+                });
+            });
+
+
+           
+
+            // GetAllComment
+            var recordId = $("#InputId").val();
+            $.ajax({
+                type: "Get",
+                url: "/Admin/Project/GetAllcommnet?recordId=" + recordId,
+                success: function(respone) {
+                    if (respone != null) {
+
+                        for (var i = 0; i < respone.length; i++) {
+                            var comment = "<div class='comment row no-gutters mb-6'>" +
+                                "<img src='/UploadEm/" +
+                                respone[i].attachment +
+                                " '  class='col-auto avatar mr-2'/>" +
+                                "<div class='col'>" +
+                                "<div class='row no-gutters align-items-center'>" +
+                                "<span class='username font-weight-bold mr-1'> " +
+                                respone[i].firstName +
+                                ' ' +
+                                respone[i].lastName +
+                                "</span>" +
+                                "<span class='time text-muted'>" +
+                                respone[i].date +
+                                "</span>" +
+                                "</div>" +
+                                "<div class='message inf-input-cmt'> " +
+                                respone[i].context +
+                                "<button type='button' class='col-auto btn btn-icon' aria-label='more' onclick='ConfirmDelete(" + respone[i].id +")'>"+
+                                "<i class='icon icon-dots-vertical' ></i>"+
+                                "</button>"+
+                                "</div>" +
+                                "<div class='actions row no-gutters align-items-center justify-content-start'>" +
+                                " </div> " +
+                                " </div> " +
+                                " </div>";
+                            $("#newComment").before(comment);
+                            
+                            $("#text").val('');
+
+                        }
+                    }
+
+                }
+            });
+        });
+        //delete Comment
+        var ConfirmDelete = function (id) {
+           
+            $("#CommentId").val(id);
+
+            $("#Mymodaldelete").modal("show");
+        }
+        var DeleteEmployee = function () {
+            var ComId = $("#CommentId").val();
+            debugger 
+            $.ajax({
+                type: "GET",
+                url: "/Admin/task/DeleteComment?ComId=" + ComId,
+                success: function (result) {
+                    if (result == true) {
+                        $("#Mymodaldelete").modal("hide");
+                        window.location.reload();
+                    } else {
+                        $("#Mymodaldelete").modal("hide");
+                        window.location.reload();
+                    }
+                }
+
+            });
+        }
+
+        $(".sel").select2({
+            theme: "classic",
+            placeholder: "Select"
+
+        });
+        $(".down").select2({
+            theme: "classic",
+            placeholder: "Select",
+            multiple: true
+        });
+        $(".down").on("change",
+            function() {
+
+                var select = $(".down").val();
+
+                $("#textvalue").val(select);
+            });
+
+
+        //Convert Model.employeeSelected to array
+        var data = [];
+        var items = @Html.Raw(Json.Serialize(ViewBag.Employee));
+        var items1 = @Html.Raw(Json.Serialize(Model.EmlpSelected));
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            for (var j = 0; j < items1.length; j++) {
+                var item1 = items1[j];
+
+                if (item.id == item1) {
+                    data.push(item1);
+                }
+            }
+        }
+        $('.down').val(data);
+        $('.down').trigger('change');
+
+    </script>
+}
+
+
+

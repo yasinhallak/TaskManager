@@ -1,0 +1,98 @@
+﻿@using TaskManager.AdamResurces
+@using TaskManager.Enums
+@model TaskManager.Data.ViewModel.CustomerVM
+
+<h2 class="text-dark text-center edit-head">@_UserInfo.DetailCustomer</h2>
+
+
+
+
+<div class="col-12 lang" style="padding: 100px">
+    <div class="form-row font">
+        <div class="form-group col-md-6">
+            @Html.TextBoxFor(model => model.FirstName, new { @readonly = "readonly", @class = "form-control" })
+            <label asp-for="FirstName" class="col-form-label adTask-input"></label>
+
+        </div>
+        <div class="form-group col-md-6">
+            @Html.TextBoxFor(model => model.LastName, new { @readonly = "readonly", @class = "form-control" })
+            <label asp-for="LastName" class="col-form-label adTask-input"></label>
+        </div>
+    </div>
+    <div class="form-row font">
+        <div class="form-group col-md-6">
+            @Html.TextBoxFor(model => model.Email, new { @readonly = "readonly", @class = "form-control" })
+            <label asp-for="Email" class="col-form-label adTask-input"></label>
+        </div>
+        <div class="form-group col-md-6">
+            @Html.TextBoxFor(model => model.Mobile, new { @readonly = "readonly", @class = "form-control" })
+            <label asp-for="Mobile" class="col-form-label adTask-input"></label>
+        </div>
+    </div>
+    <div class="form-row font">
+        <div class="form-group col-md-6">
+            <label asp-for="Gender" class="col-form-label"></label>
+            <select asp-for="Gender" disabled class="form-control" asp-items="Html.GetEnumSelectList<Gender>()">
+                <option selected="selected" value="">Gender</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Nationality1" class="col-form-label"></label>
+            <select asp-for="Nationality1" disabled class="form-control" asp-items="Html.GetEnumSelectList<Nationality1>()">
+                <option selected="selected" value="">Nationality</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row font">
+        <div class="form-group col-md-6">
+            <label asp-for="Country" class="col-form-label"></label>
+            <select asp-for="Country" disabled class="form-control country" asp-items="Html.GetEnumSelectList<Country>()">
+                <option selected="selected" value="">Country</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="CityId" class="col-form-label"></label>
+            @Html.DropDownListFor(model => model.CityId, new SelectList(ViewBag.ListCity, "Id", "Name"), "--Select City", new {@disabled = "disabled", @class = "form-control city"})
+        </div>
+    </div>
+    <div class="form-group col-md-12 font">
+        @Html.TextBoxFor(model => model.Address, new { @readonly = "readonly", @class = "form-control" })
+        <label asp-for="Address" class="col-form-label inf-input-ads"></label>
+    </div>
+
+    <div class="form-group col-md-12 font">
+        <textarea asp-for="Notes" disabled class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <label asp-for="Notes" for="exampleFormControlTextarea1" class="inf-input-ads"></label>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3">
+        @if (Model.FilePath?.Count > 0)
+        {
+            foreach (var file in Model.FilePath)
+            {
+                <img src="~/@file.FilePath" class="thumbnail mb-3 mr-4" style="border-radius: 5px; border: 1px solid #ddd;width:100%; height:100%; padding: 5px; " />
+            }
+        }
+
+    </div>
+    <div class="form-group text-center">
+        <a asp-action="Edit" asp-route-id="@Model.Id" style="background-color: #10CC7C" class="btn btn-primary font">@_button.Edit</a>
+        <a asp-action="Index" style="background-color: #10CC7C" class="btn btn-primary font">@_button.Back_to_List</a>
+    </div>
+</div>
+
+
+@section Scripts{
+    @{
+
+        <script>
+            $(".Customer").parent().addClass('active').siblings().removeClass('active');
+
+
+        </script>
+
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+

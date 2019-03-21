@@ -1,0 +1,541 @@
+﻿@using Microsoft.AspNetCore.Localization
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <title>AdamTask</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <environment include="Development,Production">
+        <link rel="stylesheet" href="/Content/assets/icons/fuse-icon-font/style.css">
+        <link rel="stylesheet" href="/Content/assets/node_modules/animate.css/animate.min.css">
+        <link rel="stylesheet" href="/Content/assets/node_modules/pnotify/dist/PNotifyBrightTheme.css">
+        <!-- Nvd3 - D3 Charts -->
+        <link rel="stylesheet" href="/Content/assets/node_modules/nvd3/build/nv.d3.min.css" />
+        <link rel="stylesheet" href="/Content/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css" />
+        <link rel="stylesheet" href="/Content/assets/fuse-html/fuse-html.min.css" />
+        <link rel="stylesheet" href="/Content/assets/css/main.css">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/themes/dot-luv/jquery-ui.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+        @*<link href="~/css/Customize.css" rel="stylesheet" />*@
+
+        <!-- / STYLESHEETS -->
+
+
+    </environment>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/Content/assets/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700italic,700,900,900italic" rel="stylesheet">
+    <!-- STYLESHEETS -->
+    <style type="text/css">
+        [fuse-cloak],
+        .fuse-cloak {
+            display: none !important;
+        }
+
+    </style>
+</head>
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+
+    var currentLanguage = requestCulture.RequestCulture.Culture.ToString();
+}
+@if (currentLanguage == "ar-SY")
+{
+    <script type="text/javascript" src="/Content/assets/node_modules/d3/d3-rtl.min.js"></script>
+    <script type="text/javascript" src="/Content/assets/node_modules/nvd3/build/nv.d3.min.js"></script>
+    <script type="text/javascript" src="/Content/assets/node_modules/jquery/dist/jquery.min.js"></script>
+    <link href="~/css/main-rtl.css" rel="stylesheet" type="text/css" />
+
+    <body class="layout layout-vertical layout-right-navigation layout-below-toolbar layout-below-footer">
+        <main>
+            <div id="wrapper">
+                <div class="content-wrapper">
+                    @*_header*@
+                    <partial name="_header" />
+                    <div class="content custom-scrollbar">
+                        @RenderBody()
+                    </div>
+                    <nav id="footer" class="bg-dark text-auto row no-gutters align-items-center px-6">
+                    </nav>
+                </div>
+                <partial name="_asideRight" />
+            </div>
+        </main>
+        <environment include="Development,Production">
+            <!-- JAVASCRIPT -->
+            <!-- jQuery -->
+            <script type="text/javascript" src="/Content/assets/node_modules/jquery/dist/jquery.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/mobile-detect/mobile-detect.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/popper.js/dist/umd/popper.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/d3/d3.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/nvd3/build/nv.d3.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/datatables.net/js/jquery.dataTables.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/datatables-responsive/js/dataTables.responsive.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotify.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyStyleMaterial.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyButtons.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyCallbacks.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyMobile.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyHistory.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyDesktop.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyConfirm.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyReference.js"></script>
+            <script type="text/javascript" src="/Content/assets/fuse-html/fuse-html.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/js/main.js"></script>
+            <script src="~/lib/jquery/dist/jquery-ui-1.12.1.min.js"></script>
+
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+            <!-- / JAVASCRIPT -->
+        </environment>
+        @RenderSection("Scripts", required: false)
+        <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+        @*<a href="~/manifest.json">~/manifest.json</a>*@
+
+        <script>
+
+
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAwASfjWUoAJ0gE4k9HhLmBnKZUVWA__XY",
+            authDomain: "fir-adamtask.firebaseapp.com",
+            databaseURL: "https://fir-adamtask.firebaseio.com",
+            projectId: "fir-adamtask",
+            storageBucket: "fir-adamtask.appspot.com",
+            messagingSenderId: "550075842685"
+        };
+        firebase.initializeApp(config);
+        const messaging = firebase.messaging();
+
+        messaging.requestPermission()
+            .then(function () {
+                console.log('notification permission granted.');
+                if (IsTokenSentToServer()) {
+                    console.log('token already saved');
+                } else {
+                    getRegToken();
+                }
+                getRegToken();
+            }).catch(function (err) {
+                console.log('Unable to get permission to notify.', err);
+            });
+        function getRegToken() {
+            messaging.getToken()
+                .then(function (currentToken) {
+                   if (currentToken) {
+                        saveToken(currentToken);
+                       setTokenSentToServer(true);
+                     } else
+                    {
+                        console.log('No Instance ID token available. Request permission to generate one.');
+                        setTokenSentToServer(false);
+                    }
+                }).catch(function (err) {
+                    console.log('An error occurred while retrieving token. ', err);
+                    showToken('Error retrieving Instance ID token. ', err);
+                    setTokenSentToServer(false);
+                });
+        }
+        function setTokenSentToServer(sent) {
+            window.localStorage.setItem('sentToServer', sent ? 1 : 0);
+        }
+        function IsTokenSentToServer(sent) {
+            return window.localStorage.getItem('sentToServer') == 1;
+        }
+        function saveToken(currentToken) {
+
+            $.ajax({
+                type: "Post",
+                url: "/chatHub/saveToken",
+                data: { currentToken: currentToken },
+                success: function () {
+
+                }
+            });
+        }
+
+        messaging.onMessage(function (payload) {
+
+            $.ajax({
+                type: "Get",
+                url: "/Admin/Notification/GetNotification",
+                success: function (respon) {
+                    if (respon == 0) {
+                        $("#count").html();
+                    }
+                    else {
+                        $("#count").html(respon);
+                    }
+                }
+            });
+           var div1 = "<a class='dropdown-item' href='" +
+           payload.data.tag +
+               "' >" +
+               "<div class='no-gutters align-items-center justify-content-between flex-nowrap'> " +
+               " <div class='row no-gutters align-items-center flex-nowrap'>" +
+               "<img class='avatar' src='/UploadEm/" +payload.data.filename + "'>" +
+               "<sapn class='px-3'>"+ payload.data.message + "</sapn> " +
+               " </div>" +
+               " </div> " +
+               "<div class='no-gutters align-items-center justify-content-between flex-nowrap'>" +
+               " <div class='row no-gutters align-items-center flex-nowrap'>" +
+               " <span class='drop-nm'>" +
+           payload.data.name +
+           "</span>" +
+               "</div>" +
+               "</div>" +
+                " </a>";
+            $("#show-m").before(div1);
+        });
+        //reset Counter
+        $("#count").click(function () {
+            $("#count").empty();
+            $.ajax({
+                type: "Get",
+                url: "/Admin/Notification/ResetNotification"
+            });
+        });
+        //GetAllNotification
+        $.ajax({
+            type: "Get",
+            url: "/Admin/Notification/GetAllNotification",
+            success: function (respon) {
+
+                    for (var i = 0; i < respon.length; i++) {
+                        var notify = "<a class='dropdown-item' href='/Admin/" +
+                            respon[i].tableName + "/Details?Id="
+                            + respon[i].tablePkId +
+                            "' >" +
+                            "<div class='no-gutters align-items-center justify-content-between flex-nowrap'> " +
+                            " <div class='row no-gutters align-items-center flex-nowrap'>" +
+                            "<img class='avatar' src='/UploadEm/" + respon[i].filename + "'>" +
+                            "<sapn class='px-3'>" + respon[i].context + "</sapn> " +
+                            " </div>" +
+                            " </div> " +
+                            "<div class='no-gutters align-items-center justify-content-between flex-nowrap'>" +
+                            " <div class='row no-gutters align-items-center flex-nowrap'>" +
+                            " <span class='drop-nm'>" +
+                            respon[i].nameOfSend +
+                            "</span>" +
+                            "</div>" +
+                            "</div>" +
+                            " </a>";
+                        $("#show-m").before(notify);
+                    }
+            }
+        });
+        // GetAllCount
+        $.ajax({
+            type: "Post",
+            url: "/Admin/Notification/GetAllCount",
+
+                success: function(respon) {
+                    if (respon == 0) {
+                        $("#count").html();
+                    } else {
+                        $("#count").html(respon);
+                    }
+                }
+
+        });
+        $(document).ready(function () {
+
+            //Menu Active
+            $(".nav-item").on('click', 'li', function () {
+
+                $(".nav-item li.active").removeClass('active');
+                $(this).addClass('active');
+            });
+            // Notify Successfully
+            var successMessage = '@TempData["SuccessMessage"]';
+
+            if (successMessage != '') {
+
+                toastr.success(successMessage);
+            }
+
+            var updateMessage = '@TempData["UpdateMessage"]';
+            if (updateMessage != '') {
+                debugger
+                toastr.success(updateMessage);
+
+            }
+            var deleteMessage = '@TempData["DeleteMessage"]';
+
+            if (deleteMessage != '') {
+
+                toastr.error(deleteMessage);
+            }
+            // Warnnig To delete City
+            var WarrningMessage = '@TempData["WarringMessage"]';
+
+            if (WarrningMessage != '') {
+
+                toastr.error(WarrningMessage);
+            }
+        });
+        </script>
+    </body>
+}
+else
+{
+    <script type="text/javascript" src="/Content/assets/node_modules/d3/d3.min.js"></script>
+    <script type="text/javascript" src="/Content/assets/node_modules/nvd3/build/nv.d3.min.js"></script>
+    <script type="text/javascript" src="/Content/assets/node_modules/jquery/dist/jquery.min.js"></script>
+    <link href="~/css/main.css" rel="stylesheet" type="text/css" />
+    <body class="layout layout-vertical layout-left-navigation layout-below-toolbar layout-below-footer" style="min-height: 1000px">
+        <main>
+            <div id="wrapper">
+                @*Side Bar Left*@
+                <partial name="_SideBarLeft" />
+                <div class="content-wrapper">
+                    @*Header*@
+                    <partial name="_header" />
+                    <div class="content custom-scrollbar">
+                        @RenderBody()
+                    </div>
+                    <nav id="footer" class="bg-dark text-auto row no-gutters align-items-center px-6">
+                    </nav>
+                </div>
+
+
+            </div>
+        </main>
+        <environment include="Development,Production">
+            <!-- JAVASCRIPT -->
+            <!-- jQuery -->
+            <script type="text/javascript" src="/Content/assets/node_modules/jquery/dist/jquery.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/mobile-detect/mobile-detect.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/popper.js/dist/umd/popper.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/nvd3/build/nv.d3.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/datatables.net/js/jquery.dataTables.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/datatables-responsive/js/dataTables.responsive.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotify.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyStyleMaterial.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyButtons.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyCallbacks.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyMobile.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyHistory.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyDesktop.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyConfirm.js"></script>
+            <script type="text/javascript" src="/Content/assets/node_modules/pnotify/dist/iife/PNotifyReference.js"></script>
+            <script type="text/javascript" src="/Content/assets/fuse-html/fuse-html.min.js"></script>
+            <script type="text/javascript" src="/Content/assets/js/main.js"></script>
+            <script src="~/lib/jquery/dist/jquery-ui-1.12.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+            <!-- / JAVASCRIPT -->
+
+        </environment>
+        @RenderSection("Scripts", required: false)
+        <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+        @*<a href="~/manifest.json">~/manifest.json</a>*@
+
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyAwASfjWUoAJ0gE4k9HhLmBnKZUVWA__XY",
+                authDomain: "fir-adamtask.firebaseapp.com",
+                databaseURL: "https://fir-adamtask.firebaseio.com",
+                projectId: "fir-adamtask",
+                storageBucket: "fir-adamtask.appspot.com",
+                messagingSenderId: "550075842685"
+            };
+            firebase.initializeApp(config);
+            const messaging = firebase.messaging();
+
+            messaging.requestPermission()
+                .then(function () {
+                    console.log('notification permission granted.');
+                    if (IsTokenSentToServer()) {
+                        console.log('token already saved');
+                    } else {
+                        getRegToken();
+                    }
+                    getRegToken();
+                }).catch(function (err) {
+                    console.log('Unable to get permission to notify.', err);
+                });
+            function getRegToken() {
+                messaging.getToken()
+                    .then(function (currentToken) {
+                        if (currentToken) {
+                            saveToken(currentToken);
+                            setTokenSentToServer(true);
+                        } else
+                        {
+                            console.log('No Instance ID token available. Request permission to generate one.');
+                            setTokenSentToServer(false);
+                        }
+                    }).catch(function (err) {
+                        console.log('An error occurred while retrieving token. ', err);
+                        showToken('Error retrieving Instance ID token. ', err);
+                        setTokenSentToServer(false);
+                    });
+            }
+            function setTokenSentToServer(sent) {
+                window.localStorage.setItem('sentToServer', sent ? 1 : 0);
+            }
+            function IsTokenSentToServer(sent) {
+                return window.localStorage.getItem('sentToServer') == 1;
+            }
+            function saveToken(currentToken) {
+
+                $.ajax({
+                    type: "Post",
+                    url: "/chatHub/saveToken",
+                    data: { currentToken: currentToken },
+                    success: function () {
+
+                    }
+                });
+            }
+            messaging.onMessage(function (payload) {
+
+                $.ajax({
+                    type: "Get",
+                    url: "/Admin/Notification/GetNotification",
+                    success: function (respon) {
+                        if (respon == 0) {
+                            $("#count").html();
+                        }
+                        else {
+                            $("#count").html(respon);
+                        }
+                    }
+                });
+                var div1 = "<a class='dropdown-item' href='" +
+                    payload.data.tag +
+                    "' >" +
+                    "<div class='no-gutters align-items-center justify-content-between flex-nowrap'> " +
+                    " <div class='row no-gutters align-items-center flex-nowrap'>" +
+                    "<img class='avatar' src='/UploadEm/" +payload.data.filename + "'>" +
+                    "<sapn class='px-3'>"+ payload.data.message + "</sapn> " +
+                    " </div>" +
+                    " </div> " +
+                    "<div class='no-gutters align-items-center justify-content-between flex-nowrap'>" +
+                    " <div class='row no-gutters align-items-center flex-nowrap'>" +
+                    " <span class='drop-nm'>" +
+                    payload.data.name +
+                    "</span>" +
+                    "</div>" +
+                    "</div>" +
+                    " </a>";
+                $("#show-m").before(div1);
+            });
+            //reset Counter
+            $("#count").click(function () {
+                $("#count").empty();
+                $.ajax({
+                    type: "Get",
+                    url: "/Admin/Notification/ResetNotification"
+                });
+            });
+            //GetAllNotification
+            $.ajax({
+                type: "Get",
+                url: "/Admin/Notification/GetAllNotification",
+                success: function (respon) {
+
+                    for (var i = 0; i < respon.length; i++) {
+                        var notify = "<a class='dropdown-item' href='/Admin/" +
+                            respon[i].tableName + "/Details?Id="
+                            + respon[i].tablePkId +
+                            "' >" +
+                            "<div class='no-gutters align-items-center justify-content-between flex-nowrap'> " +
+                            " <div class='row no-gutters align-items-center flex-nowrap'>" +
+                            "<img class='avatar' src='/UploadEm/" + respon[i].filename + "'>" +
+                            "<sapn class='px-3'>" + respon[i].context + "</sapn> " +
+                            " </div>" +
+                            " </div> " +
+                            "<div class='no-gutters align-items-center justify-content-between flex-nowrap'>" +
+                            " <div class='row no-gutters align-items-center flex-nowrap'>" +
+                            " <span class='drop-nm'>" +
+                            respon[i].nameOfSend +
+                            "</span>" +
+                            "</div>" +
+                            "</div>" +
+                            " </a>";
+                        $("#show-m").before(notify);
+                    }
+                }
+            });
+            // GetAllCount
+            $.ajax({
+                type: "Post",
+                url: "/Admin/Notification/GetAllCount",
+
+                success: function(respon) {
+                    if (respon == 0) {
+                        $("#count").html();
+                    } else {
+                        $("#count").html(respon);
+                    }
+                }
+
+            });
+            $(document).ready(function () {
+                $(function () {
+                    //$(".nav a").each(function () {
+                    //    console.log(window.location.href.indexOf($(this).attr("href")) > -1);
+
+                    //    if (window.location.href.includes($(this).attr("href"))) { $(this).parent().addClass('active').siblings().removeClass('active'); }
+                    //});
+
+
+                     
+                    //$('.nav a').filter(function () { return window.location.href.indexOf($(this).attr("href")) > -1  }).parent().addClass('active')
+                    //    .siblings().removeClass('active');
+                    $('.nav a').click(function() {
+                        $(this).parent().addClass('active').siblings().removeClass('active');
+                    });
+                });
+
+
+                // Notify Successfully
+                var successMessage = '@TempData["SuccessMessage"]';
+
+                if (successMessage != '') {
+
+                    toastr.success(successMessage);
+                }
+
+                var updateMessage = '@TempData["UpdateMessage"]';
+                if (updateMessage != '') {
+
+                    toastr.success(updateMessage);
+
+                }
+                var deleteMessage = '@TempData["DeleteMessage"]';
+
+                if (deleteMessage != '') {
+
+                    toastr.error(deleteMessage);
+                }
+                // Warnnig To delete City
+                var WarrningMessage = '@TempData["WarringMessage"]';
+
+                if (WarrningMessage != '') {
+
+                    toastr.error(WarrningMessage);
+                }
+            });
+        </script>
+
+
+
+    </body>
+}
+
+
+</html>

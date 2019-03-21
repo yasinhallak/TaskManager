@@ -1,0 +1,126 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TaskManager.AdamResurces
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@using TaskManager.Extensions
+
+@*Side Bar Left*@
+<link href="~/css/main.css" rel="stylesheet" />
+<aside id="aside" class="aside aside-left" data-fuse-bar="aside" data-fuse-bar-media-step="md" data-fuse-bar-position="left">
+    <div class="aside-content bg-primary-700 text-auto">
+
+        <div class="aside-toolbar" >
+
+            <div class="logo" style="width:100%">
+
+            </div>
+
+            <button id="toggle-fold-aside-button" type="button" class="btn btn-icon d-none d-lg-block" data-fuse-aside-toggle-fold>
+                <i class="icon icon-backburger"></i>
+            </button>
+
+        </div>
+       
+
+        <ul class="nav flex-column custom-scrollbar nav" id="sidenav" data-children=".nav-item" style="padding-top: 50px">
+
+   
+            <li class="nav-item">
+                <a class="nav-link ripple Dashboard" asp-area="Admin" asp-controller="Dashboard" asp-action="Index"data-url="user-interface-page-layouts-blank.html">
+
+                    <i class="icon icon-tile-four Icon-color"></i>
+
+                    <span>Dashboards</span>
+                </a>
+            </li>
+
+         
+            @if (User.IsInRole(AppHelper.SuperAdminEndUser))
+            {
+                <li class="nav-item active">
+                    <a class="nav-link ripple Employee" asp-area="Admin" asp-controller="Employee" asp-action="Index" data-url="user-interface-page-layouts-blank.html">
+
+                        <i class="icon-account-circle Icon-color"></i>
+                        
+
+                        <span>Employees</span>
+                    </a>
+                </li>
+                <li class="nav-item " >
+                    <a class="nav-link ripple Customer" asp-area="Admin" asp-controller="Customer" asp-action="Index" data-url="user-interface-page-layouts-blank.html">
+
+                        <i class="icon-account-circle Icon-color"></i>
+                        
+
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ripple Project " asp-area="Admin" asp-controller="Project" asp-action="Index" data-url="user-interface-page-layouts-blank.html">
+
+                        <i class="icon-briefcase Icon-color"></i>
+
+                        <span>Projects</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ripple City" asp-area="Admin" asp-controller="City" asp-action="Index" data-url="user-interface-page-layouts-blank.html">
+
+                        <i class="icon-account-location Icon-color"></i>
+
+                        <span>Cities</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ripple task" asp-area="Admin" asp-controller="task" asp-action="Index" data-url="user-interface-page-layouts-blank.html">
+
+                        <i class="icon-content-paste Icon-color"></i>
+
+                        <span>Tasks</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ripple Report" asp-area="Admin" asp-controller="Report" asp-action="Index"  data-url="user-interface-page-layouts-blank.html">
+
+                        <i class="icon-content-duplicate Icon-color"></i>
+
+                        <span>Reports</span>
+                    </a>
+                </li>
+            }
+            else if (User.IsInRole(AppHelper.Users))
+            {
+                <li class="nav-item">
+                    <a class="nav-link ripple task" asp-area="Admin" asp-controller="task" asp-action="Index" data-url="user-interface-page-layouts-blank.html">
+
+                        <i class="icon-content-duplicate Icon-color"></i>
+
+                        <span>Tasks</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ripple Project" asp-area="Admin" asp-controller="Project" asp-action="Index" data-url="user-interface-page-layouts-blank.html">
+
+                        <i class="icon-briefcase Icon-color"></i>
+
+                        <span>Projects</span>
+                    </a>
+                </li>
+               
+            }
+
+            @if (!SignInManager.IsSignedIn(User))
+            {
+                <li class="nav-item">
+                    <a class="nav-link ripple " asp-area="Identity" asp-page="/Account/Login" data-url="user-interface-page-layouts-blank.html">
+                        <i class="icon-account-key Icon-color"></i>
+                        <span>@_SideBar.Login</span>
+                    </a>
+                </li>
+            }
+           
+        </ul>
+    </div>
+
+</aside>
+

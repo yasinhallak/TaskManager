@@ -1,0 +1,422 @@
+﻿@using TaskManager.AdamResurces
+@using TaskManager.Data
+@using TaskManager.Enums
+@model IEnumerable<TaskManager.Data.ViewModel.TaskVM>
+@{
+
+    ViewData["Title"] = "Index";
+    var db = new ApplicationDbContext();
+    var task = db.Tasks.Select(x => x.ParentId).ToList();
+}
+
+
+<style>
+    .select {
+        cursor:pointer;
+    }
+    .col-12 {
+        flex: 0 0 11%;
+    }
+
+    .Plus {
+        cursor: pointer;
+    }
+
+    .btn {
+        color: #ffffff;
+        border-radius: 5px;
+    }
+</style>
+<div style="background-color: white; padding: 7px;border-bottom: 1px solid #8BC4DD">
+    <div class="col-12 text-left">
+        <h2 class="text-secondary text-center" style="background-color: white; color: #457189;"> @_taskVM.TaskList </h2>
+    </div>
+</div>
+
+
+<div style="margin:50px">
+    <table class="table table-striped border tbl-opt" id="task">
+        <thead class="th-opt">
+            <tr>
+                <th class="secondary-text">
+                    <div class="table-header">
+                        <span class="column-title"> @Html.DisplayNameFor(m => m.Name)</span>
+                    </div>
+                </th>
+
+                <th class="secondary-text">
+                    <div class="table-header">
+                        <span class="column-title"> @Html.DisplayNameFor(m => m.Priority)</span>
+                    </div>
+                </th>
+                <th class="secondary-text">
+                    <div class="table-header">
+                        <span class="column-title"> @Html.DisplayNameFor(m => m.Development)</span>
+                    </div>
+                </th>
+
+                <th class="secondary-text">
+                    <div class="table-header">
+                        <span class="column-title" style="text-align:center">Date</span>
+                    </div>
+                </th>
+                <th class="secondary-text">
+                    <div class="table-header">
+                        <span class="column-title">Progress</span>
+                    </div>
+                </th>
+
+                <th></th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="@item.Id" >
+
+                    <td>
+                        @if (task.Contains(item.Id))
+                        {
+                            <i class="fas fa-plus Plus" data-loaded="false" pid="@item.Id"></i>
+                        }
+                        <span> @Html.DisplayFor(m => item.Name)</span>
+                    </td>
+                    <td>
+                        <div class="add-shortcut-menu-button dropdown px-1 px-sm-3">
+                            <div class="dropdown-toggle btn priorityColor" style="width: 100px" role="button" id="dropdownShortcutMenu-@item.Id" data-priority-Name="@item.Priority" data-Project-id="@item.Id" data-toggle="dropdown" aria-haspopup="true" value="Priority" aria-expanded="false">
+                                @item.Priority
+                            </div>
+                            <div class="dropdown-menu after-menue" aria-labelledby="dropdownShortcutMenu-@item.Id">
+                                <center>
+                                    <div><button asp-for=" @item.Priority" class='btn js-priority-divbtn mb-3' style="background-color: #E1435A;" data-Project-id="@item.Id" data-priority-Name="Hight">Hight</button></div>
+                                    <div><button asp-for=" @item.Priority" class='btn js-priority-divbtn mb-3' style="background-color: #FDAB3D;" data-Project-id="@item.Id" data-priority-Name="Medium">Medium</button></div>
+                                    <div><button asp-for=" @item.Priority" class='btn js-priority-divbtn mb-3' style="background-color: #794BD1;" data-Project-id="@item.Id" data-priority-Name="Low">Low</button></div>
+                                </center>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="add-shortcut-menu-button dropdown px-1 px-sm-3">
+
+                            <div class="dropdown-toggle btn DevelopmentColor" style="width: 130px" role="button" id="dropdownDevelopment-@item.Id" data-Development-Name="@item.Development" data-Project-id="@item.Id" data-toggle="dropdown" aria-haspopup="true" value="Priority" aria-expanded="false">
+                                @item.Development
+                            </div>
+                            <div class="dropdown-menu after-menue" aria-labelledby="dropdownShortcutMenu-@item.Id">
+                                <center>
+                                    <div><button class='btn js-Development-divbtn mb-3 ml-3 mr-3' style="width: 120px; background-color: #00C774;" data-Project-id="@item.Id" data-Development-Name="Done">Done</button></div>
+                                    <div><button class='btn js-Development-divbtn mb-3' style="width: 120px; background-color: #FDAB3D;" data-Project-id="@item.Id" data-Development-Name="WorkingOn">WorkingOn</button></div>
+                                    <div><button class='btn js-Development-divbtn mb-3' style="width: 120px; background-color: #E1435A;" data-Project-id="@item.Id" data-Development-Name="Stuck">Stuck</button></div>
+                                    <div><button class='btn js-Development-divbtn mb-3' style="width: 120px; background-color: #0c3156; color: #EEEEEE;" data-Project-id="@item.Id" data-Development-Name="init" id='js-Low'>init</button></div>
+                                </center>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="datefunction" data-Project-id="@item.Id">
+                            <label class="btn StartDate" style="width: 120px; background-color: #0E5275; border-radius: 5px;" Start-Date="@item.StartDate" id="StartDate-@item.Id">@item.StartDate</label>
+                            <i class="icon-ray-start-arrow" style="color: #0E5275"></i>
+                            <label class="btn btn-primary EndDate" style="width: 120px; background-color: #13A9F6; border-radius: 5px;" End-Date="@item.EndDate" id="EndDate-@item.Id">@item.EndDate</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="animated-progress" id="animated-progress-@item.Id" style="background-color: #EEEEEE; border: 1px #00CB72 solid; height: 20px; width: 100px; border-radius: 5px; overflow: hidden;">
+                            <span id="animated-span-@item.Id" style="width: 0px; height: 100%; display: none; background-color: #00CB72;"></span>
+                        </div>
+                        <span id="percentage-@item.Id" style="padding: 0px 10px 0px 0px;"></span>
+                    </td>
+                    <td style="width: 150px">
+                        <a type="button" class="btn btn-primary" href="@Url.Action("Details/"+item.Id)">
+                            <i class="fas fa-list-alt"></i>
+                        </a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <input type="hidden" id="hiddenEmployeeId" />
+
+    @*delete employeee using bootstrapmodal*@
+    <div class="modal fade" id="Mymodaldelete">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="MymodalBody">
+                    <h4> Are you sure? You want to delete this.</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="DeleteEmployee()">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts
+
+    {
+    <script>
+        $(document).ready(function () {
+            $(".task").parent().addClass('active').siblings().removeClass('active');
+
+            $(".Plus").click(function () {
+                var this1 = $(this);
+                var trid = $(this).attr('pid');
+                var isloaded = $(this).attr('data-loaded'); // check data already loaded or not
+                console.log(isloaded);
+                if (isloaded == 'false') {
+                    $.ajax({
+                        type: "Get",
+                        url: "/Admin/task/SubTask?trid=" + trid,
+                        success: function (result) {
+                            $("#" + trid).after(result);
+
+                            $(this1).attr('data-loaded', true);
+                        },
+                        error: function () {
+                            alert("Error");
+                        }
+                    });
+
+                }
+            });
+            //DataTable
+            $("#task").dataTable({
+                responsive: true,
+                "scrollCollapse": true
+            });
+            //Select Project
+            $("#Proj").change(function () {
+                $(".submit").submit();
+            });
+            //Crop the Date
+            $(".datefunction").each(function () {
+
+                var button = $(this);
+                var id = button.attr("data-Project-id");
+                var StartDate = $("#StartDate-" + id).attr("Start-Date");
+                console.log(StartDate);
+                if (StartDate.indexOf(" ")) {
+                    StartDate = StartDate.split(" ");
+                }
+                else {
+                    StartDate = StartDate.split("T");
+                };
+                $("#StartDate-" + id).html(StartDate[0]);
+
+
+                var EndDate = $("#EndDate-" + id).attr("End-Date");
+                if (EndDate.indexOf(" ")) {
+                    EndDate = EndDate.split(" ");
+                }
+                else {
+                    EndDate = StartDate.split("T");
+                };
+                $("#EndDate-" + id).html(EndDate[0]);
+
+            });
+
+            ////PriorityColor
+            $(".priorityColor").each(function () {
+                var button = $(this);
+                var name = button.attr("data-priority-Name");
+                var id = button.attr("data-Project-id");
+                if (name == "Medium") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#FDAB3D");
+                }
+                else if (name == "Low") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#794BD1");
+                }
+                else if (name == "Hight") {
+                    $("#dropdownShortcutMenu-" + id).css("background-color", "#E1435A");
+                }
+
+            });
+
+            //DevelopmentColor
+            $(".DevelopmentColor").each(function () {
+                var button = $(this);
+                var name = button.attr("data-Development-Name");
+                var id = button.attr("data-Project-id");
+                if (name == "Done") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#00C774");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 100 + '%'
+                    });
+                    //  Increment counter
+                    $({ counter: 1 }).animate({ counter: 100 },
+                        {
+                            step: function () {
+                                $('#percentage-' + id).text(Math.ceil(this.counter) + ' %');
+                            }
+                        });
+                }
+                else if (name == "WorkingOn") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#FDAB3D");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 50 + '%'
+                    });
+                    //  Increment counter
+                    $({ counter: 1 }).animate({ counter: 50 },
+                        {
+                            step: function () {
+                                $('#percentage-' + id).text(Math.ceil(this.counter) + ' %');
+                            }
+                        });
+                }
+                else if (name == "Stuck") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#E1435A");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 0 + '%'
+                    });
+                    $('#percentage-' + id).text(' ');
+
+
+                }
+                else if (name == "init") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#0c3156");
+                    $("#dropdownDevelopment-" + id).css("color", "#EEEEEE");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 0 + '%'
+                    });
+                    $('#percentage-' + id).text(' ');
+
+
+
+                }
+            });
+            //Change Development 
+            $(".js-Development-divbtn").on("click", function () {
+
+                var button = $(this);
+                var id = button.attr("data-Project-id");
+                var name = button.attr("data-Development-Name");
+
+                if (name == "Done") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#00C774");
+                    $("#dropdownDevelopment-" + id).css("color", "black");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 100 + '%'
+                    });
+                    //  Increment counter
+                    $({ counter: 1 }).animate({ counter: 100 },
+                        {
+                            step: function () {
+                                $('#percentage-' + id).text(Math.ceil(this.counter) + ' %');
+                            }
+                        });
+                }
+                else if (name == "WorkingOn") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#FDAB3D");
+                    $("#dropdownDevelopment-" + id).css("color", "black");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 50 + '%'
+                    });
+                    // Icreament counter
+                    $({ counter: 1 }).animate({ counter: 50 },
+                        {
+                            step: function () {
+                                $('#percentage-' + id).text(Math.ceil(this.counter) + ' %');
+                            }
+                        });
+
+                }
+                else if (name == "Stuck") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#E1435A");
+                    $("#dropdownDevelopment-" + id).css("color", "black");
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 0 + '%'
+                    });
+                    $('#percentage-' + id).text(' ');
+
+
+                }
+                else if (name == "init") {
+                    $("#dropdownDevelopment-" + id).css("background-color", "#0c3156");
+                    $("#dropdownDevelopment-" + id).css("color", "#EEEEEE");
+
+                    //  Increment span
+                    $("#animated-span-" + id).animate({
+                        'width': 0 + '%'
+                    });
+                    $('#percentage-' + id).text(' ');
+
+                }
+
+                $("#dropdownDevelopment-" + id).html(name);
+
+                $.ajax({
+                    type: 'Post',
+                    url: "/Admin/task/ChangeDevelopment/",
+                    data: { "selec": name, "id": id }
+                });
+            });
+        });
+
+        //delete data
+        var ConfirmDelete = function (Id) {
+
+            $("#hiddenEmployeeId").val(Id);
+            $("#Mymodaldelete").modal("show");
+        }
+
+        var DeleteEmployee = function () {
+
+            var empId = $("#hiddenEmployeeId").val();
+
+            $.ajax({
+                type: "GET",
+                url: "/Admin/task/DeleteConfrim?empId=" + empId,
+                success: function () {
+                    $("#Mymodaldelete").modal("hide");
+                    window.location.reload();
+
+                }
+
+            });
+        }
+        $("#Proj").select2({
+            theme: "classic",
+            placeholder: "Select Project",
+            ajax: {
+
+                url: "/Admin/task/SearchtProjectList",
+                dataType: 'json',
+                delay: 200,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term
+                    };
+                },
+                processResults: function (data, params) {
+                    return {
+                        results: data
+                    };
+                }
+            }
+
+        });
+        $("#Proj").val("-1").trigger('change.select2')
+
+    </script>
+}
+
+

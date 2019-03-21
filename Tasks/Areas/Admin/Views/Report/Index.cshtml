@@ -1,0 +1,336 @@
+﻿@using TaskManager.AdamResurces
+@using TaskManager.Enums
+@model TaskManager.Data.ViewModel.ReportVM
+
+
+<style>
+
+    .lang {
+        background-color: white;
+    }
+
+</style>
+<div id="wrapper" >
+    <div class="content-wrapper">
+        <div class="content custom-scrollbar">
+
+            <div id="project-dashboard" class="page-layout simple right-sidebar">
+
+                <div class="page-content-wrapper custom-scrollbar">
+                    <!-- CONTENT -->
+                    <div class="page-content lang">
+                        <div class="tab-content ">
+                            <div class="tab-pane fade show active p-4" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab">
+                                <!-- WIDGET GROUP -->
+                                <div class="widget-group row no-gutters">
+
+                                    <!-- Employees -->
+
+                                    <div class="col-12 col-sm-6 col-xl-4 p-4 ">
+                                        @using (Html.BeginForm("EmployeeList", "Report", FormMethod.Get))
+                                        {
+                                            <div class="widget widget1 card">
+
+                                                <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
+
+                                                </div>
+
+                                                <div class="widget-content pt-2 pb-8 d-flex flex-column align-items-center justify-content-center">
+
+                                                    <div class="text-secondary" style="font-size: 30px ;font-family: 'Cairo', sans-serif;">
+                                                        @_ReportVM.Employees
+                                                    </div>
+
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownListFor(m => m.EmployeeId, new SelectList(Model.ListEmployees, "Id", "FirstName"), new { @class = "form-control emp" })
+                                                    </div>
+                                                </div>
+                                                <div class="p-4 bg-light ">
+                                                    <button type="submit" class="btn btn-secondary btn-lg col-md-4">
+                                                        <i class="icon-arrow-right-bold"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+
+
+                                    <!-- / Employee -->
+                                    <!-- Customer -->
+                                    <div class="col-12 col-sm-6 col-xl-4 p-3">
+                                        @using (Html.BeginForm("CustomerList", "Report", FormMethod.Get))
+                                        {
+                                            <div class="widget widget2 card">
+
+                                                <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
+                                                </div>
+
+                                                <div class="widget-content pt-2 pb-8 d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="text-secondary" style="font-size: 30px; font-family: 'Cairo', sans-serif;">
+                                                        @_ReportVM.Customers
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownListFor(m => m.CustomerId, new SelectList(Model.ListCustomers, "Id", "FirstName"), new { @class = "form-control cus" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="widget-footer p-4 bg-light row no-gutters align-items-center">
+                                                    <button type="submit" class="btn btn-secondary btn-lg col-md-4">
+                                                        <i class="icon-arrow-right-bold"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <!-- / Customer -->
+                                    <!-- Project -->
+                                    <div class="col-12 col-sm-6 col-xl-4 p-3">
+                                        @using (Html.BeginForm("ProjectList", "Report", FormMethod.Get))
+                                        {
+                                            <div class="widget widget2 card">
+
+                                                <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
+                                                </div>
+
+                                                <div class="widget-content pt-2 pb-8 d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="text-secondary" style="font-size: 30px; font-family: 'Cairo', sans-serif;">
+                                                        @_ReportVM.Projects
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownListFor(m => m.ProjectId, new SelectList(Model.ListProjects, "Id", "Name"), new { @class = "form-control Proj" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="widget-footer p-4 bg-light row no-gutters align-items-center">
+                                                    <button type="submit" class="btn btn-secondary btn-lg col-md-4">
+                                                        <i class="icon-arrow-right-bold"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <!-- / Project -->
+                                </div>
+                                <!-- WIDGET GROUP -->
+                                <div class="widget-group row no-gutters">
+
+                                    <!-- Task -->
+                                    <div class="col-12 col-sm-6 col-xl-6 p-4">
+                                        @using (Html.BeginForm("TaskList", "Report", FormMethod.Get))
+                                        {
+                                            <div class="widget widget1 card">
+
+                                                <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
+
+                                                </div>
+
+                                                <div class="widget-content pt-10 pb-8 d-flex flex-column align-items-center justify-content-center">
+
+                                                    <div class="text-secondary" style="font-size: 30px; font-family: 'Cairo', sans-serif;">
+                                                        @_ReportVM.Task
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-5 col-xl-6">
+                                                            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control datepicker", @placeholder = "From Date" })
+                                                        </div>
+                                                        <div class="col-5 col-xl-6">
+                                                            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control datepicker", @placeholder = "To Date" })
+                                                        </div>
+                                                    </div>
+                                                    <div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="widget-footer p-4 bg-light row no-gutters align-items-center">
+
+                                                    <button type="submit" class="btn btn-secondary btn-lg col-md-4">
+                                                        <i class="icon-arrow-right-bold"></i>
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <!-- / Task -->
+                                    <!-- Task Status -->
+                                    <div class="col-12 col-sm-6 col-xl-6 p-3">
+                                        @using (Html.BeginForm("EmployeeTask", "Report", FormMethod.Get))
+                                        {
+                                            <div class="widget widget2 card">
+
+                                                <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
+                                                </div>
+
+                                                <div class="widget-content pt-2 pb-8 d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="text-secondary" style="font-size: 30px; font-family: 'Cairo', sans-serif;">
+                                                        @_ReportVM.EmployeeTask
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class=" col-5 col-xl-6">
+                                                            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", id = "datepicker1", @placeholder = "From Date" })
+
+                                                        </div>
+                                                        <div class="col-5 col-xl-6">
+                                                            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", id = "datepicker2", @placeholder = "To Date" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6" style="margin: 10px 0 0 10px">
+                                                        <select asp-for="Development" class="form-control Development " asp-items="Html.GetEnumSelectList<Development>()">
+                                                            <option selected="selected" value="">Development</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="widget-footer p-4 bg-light row no-gutters align-items-center">
+                                                    <button type="submit" class="btn btn-secondary btn-lg col-md-4">
+                                                        <i class="icon-arrow-right-bold"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <!-- / Task Status -->
+                                </div>
+                                <!-- / WIDGET GROUP -->
+                                <!-- WIDGET GROUP -->
+                                <div class="widget-group row no-gutters">
+
+                                    <!--Employee Task -->
+                                    <div class="col-12 col-sm-6 col-xl-6 p-3">
+                                        @using (Html.BeginForm("TaskStatus", "Report", FormMethod.Get))
+                                        {
+                                            <div class="widget widget2 card">
+
+                                                <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
+                                                </div>
+
+                                                <div class="widget-content pt-2 pb-8 d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="text-secondary" style="font-size: 30px; font-family: 'Cairo', sans-serif;">
+                                                        @_ReportVM.TaskStatus
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-5 col-xl-6">
+                                                            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", id = "datepicker3", @placeholder = "From Date" })
+                                                        </div>
+                                                        <div class="col-5 col-xl-6">
+                                                            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", id = "datepicker4", @placeholder = "To Date" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6" style="margin: 10px 0 0 10px">
+                                                        @Html.DropDownListFor(m => m.EmployeeId, new SelectList(Model.ListEmployees, "Id", "FirstName"), new { @class = "form-control", id = "EmployeeName" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="widget-footer p-4 bg-light row no-gutters align-items-center">
+                                                    <button type="submit" class="btn btn-secondary btn-lg col-md-4">
+                                                        <i class="icon-arrow-right-bold"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <!-- / Employee Task-->
+                                    <!-- Project Task-->
+                                    <div class="col-12 col-sm-6 col-xl-6 p-3">
+                                        @using (Html.BeginForm("ProjectTask", "Report", FormMethod.Get))
+                                        {
+                                            <div class="widget widget2 card">
+
+                                                <div class="widget-header pl-4 pr-2 row no-gutters align-items-center justify-content-between">
+                                                </div>
+
+                                                <div class="widget-content pt-2 pb-8 d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="text-secondary" style="font-size: 30px ; font-family: 'Cairo', sans-serif;">
+                                                        @_ReportVM.ProjectTask
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-5 col-xl-6">
+                                                            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", id = "datepicker5", @placeholder = "From Date" })
+                                                        </div>
+                                                        <div class="col-5 col-xl-6">
+                                                            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", id = "datepicker6", @placeholder = "To Date" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6" style="margin: 10px 0 0 10px">
+                                                        @Html.DropDownListFor(m => m.ProjectId, new SelectList(Model.ListProjects, "Id", "Name"), new { @class = "form-control ", id = "ProjectName" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="p-4 bg-light row no-gutters align-items-center">
+                                                    <button type="submit" class="btn btn-secondary btn-lg col-md-4">
+                                                        <i class="icon-arrow-right-bold"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <!-- / Project Task -->
+                                    <!-- WIDGET 4 -->
+
+
+                                </div>
+                                <!-- / WIDGET GROUP -->
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- / CONTENT -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+@section Scripts
+    {
+    <script>
+
+        $(document).ready(function () {
+            $(".Report").parent().addClass('active').siblings().removeClass('active');
+
+            $(".datepicker").datepicker();
+            $("#datepicker1").datepicker();
+            $("#datepicker2").datepicker();
+            $("#datepicker3").datepicker();
+            $("#datepicker4").datepicker();
+            $("#datepicker5").datepicker();
+            $("#datepicker6").datepicker();
+
+        });
+        $(".emp").select2({
+            theme: "classic",
+            placeholder: @Html.Raw(Json.Serialize(_UserInfo.SelectEmployee))
+        });
+        $(".cus").select2({
+            theme: "classic",
+            placeholder: @Html.Raw(Json.Serialize(_UserInfo.SelectCustomer))
+        });
+        $(".Proj").select2({
+            theme: "classic",
+            placeholder: @Html.Raw(Json.Serialize(_UserInfo.SelectProject))
+        });
+        $(".Development").select2({
+            theme: "classic",
+            placeholder: @Html.Raw(Json.Serialize(_UserInfo.SelectDevelopment))
+        });
+        $("#EmployeeName").select2({
+            theme: "classic",
+            placeholder: @Html.Raw(Json.Serialize(_UserInfo.SelectEmployee))
+        });
+        $("#ProjectName").select2({
+            theme: "classic",
+            placeholder: @Html.Raw(Json.Serialize(_UserInfo.SelectProject))
+        });
+        $('.emp').val('-1').trigger('change.select2');
+        $('.cus').val('-1').trigger('change.select2');
+        $('.Proj').val('-1').trigger('change.select2');
+        $('.Development').val('-1').trigger('change.select2');
+        $('#EmployeeName').val('-1').trigger('change.select2');
+        $('#ProjectName').val('-1').trigger('change.select2');
+    </script>
+}

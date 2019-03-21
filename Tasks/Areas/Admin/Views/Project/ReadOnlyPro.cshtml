@@ -1,0 +1,71 @@
+﻿@using TaskManager.AdamResurces
+@model IEnumerable<TaskManager.Data.ViewModel.ProjectVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div  style="background-color: white; padding:14px;border-bottom: 1px solid #8BC4DD">
+
+    <div class="col-12 text-left">
+        <h2 class="text-secondary text-center" style="background-color: white; color: #457189;"> @_ProjectVM.ProjectList </h2>
+    </div>
+</div>
+<div style="margin:50px">
+    <table class="table table-striped border lang" id="Project">
+        <thead style="background-color: #14AAF6">
+            <tr>
+                <th class="secondary-text">
+                    <div class="table-header">
+                        <span class="column-title"> @Html.DisplayNameFor(m => m.Name)</span>
+                    </div>
+                </th>
+        
+                <th class="secondary-text">
+                    <div class="table-header">
+                        <span class="column-title"> @Html.DisplayNameFor(m => m.EmplyeeName)</span>
+                    </div>
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Name)
+                </td>
+          
+                <td>
+                    @Html.DisplayFor(m => item.EmplyeeName)
+                </td>
+               
+                <td style="width: 150px">
+                    <a type="button" class="btn btn-primary" href="@Url.Action("Details/"+item.Id)">
+                        <i class="fas fa-list-alt"></i>
+                    </a>
+                </td>
+               
+            </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+<input type="hidden" id="hiddenEmployeeId" />
+
+
+@section Scripts
+{
+    <script>
+        //DataTable
+        $(".Project").parent().addClass('active').siblings().removeClass('active');
+        $("#Project").dataTable({
+            responsive: true,
+            "scrollCollapse": true
+        });
+    </script>
+}
+

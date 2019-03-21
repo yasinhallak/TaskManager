@@ -1,0 +1,51 @@
+﻿@using TaskManager.AdamResurces
+@model IEnumerable<TaskManager.Data.ViewModel.EmployeeVM>
+@{
+    ViewData["Title"] = "EmployeeList";
+    Layout = "~/Views/Shared/_layoutReport.cshtml";
+}
+
+
+
+    <h2 class="text-info text-center">@_UserInfo.EmployeeList</h2>
+
+<table class="table table-striped table-border" id="DataTables">
+    <thead class="table-info">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Gender)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr >
+                <td>
+                    @Html.DisplayFor(m => item.FirstName)
+                    @Html.DisplayFor(m => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Gender)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
